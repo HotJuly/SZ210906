@@ -1,0 +1,19 @@
+/* pages/index/index.wxss */
+
+
+.indexContainer{
+    height:100%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    /* justify-content: space-between; */
+    background-color: pink;
+}
+
+.indexContainer .avatarUrl{
+    /* 在iphone6下,1rpx=0.5px */
+    width:400rpx;
+    height:400rpx;
+    border-radius: 50%;
+}

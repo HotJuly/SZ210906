@@ -1,0 +1,12 @@
+<!-- 
+    view标签,相当于html中的div标签,具有块级元素特点
+    image标签,相当于html中的img标签,具有行内块元素特点
+    text标签,相当于html中的span标签,具有行内元素特点
+    button标签,相当于html中的button标签,具有行内块元素特点,但是button组件的功能非常强大
+ -->
+
+<view class="indexContainer">
+    <image class="avatarUrl" src="/static/images/dazuo.jpeg"></image>
+    <text class="username">{{msg}}</text>
+    <button>欢迎来到尚硅谷</button>
+</view>
