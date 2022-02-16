@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- <meta name="viewport" content="initial-scale=2,width=375"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .img{
+            /* width:187.5px; */
+            /* width:50%; */
+            /* width:50vw; */
+            width:5rem;
+        }
+    </style>
+</head>
+<body>
+    <div style="width:200px">
+        <img class="img" src="./1.jpg" alt="" srcset="">
+    </div>
+    <script>
+        /*
+            视口
+                一共有几种视口?
+                    3种
+
+                真实存在的视口,一共有2个
+
+                布局视口
+                    页面上所有的东西都在布局视口上绘制
+                    可以理解为html文档就是布局视口
+
+                视觉视口
+                    能看到多少东西都由视觉视口决定
+                    可以理解为手机屏幕就是视觉视口
+                    视觉视口的描述单位是物理像素或者设备独立像素
+
+                    如果布局视口的内容超出了视觉视口,就会出现系统滚动条
+
+                理想视口
+                    他是一种状态
+                    如果当前布局视口宽度和视觉视口宽度数值一致,那么就称当前的状态为理想视口
+
+            如何获取到布局视口宽度
+                浏览器布局视口默认宽度980px
+                document.documentElement.clientWidth
+
+            如何将视口变为理想视口状态
+                将布局视口宽度变成于视觉视口一样宽
+                可以通过meta[name=viewoprt]标签修改布局视口宽度(device-width指的是当前屏幕的设备独立像素宽度)
+                    width=某个数值
+                    initial-scale=某个数值
+                        =视觉视口宽度/布局视口宽度=0.5
+                总结:布局视口宽度,取决于以上两者谁计算出来的数值更大,就以谁为准
+
+
+            需求:页面上有一张图片,这张图片占手机屏幕的一半宽度
+                1.px
+                    px单位不会随着屏幕的大小发生变化
+                2.百分比
+                    宽度的百分比数值会参考父节点的宽度,无法直接参考当前屏幕宽度
+                3.vw/vh
+                    100vw = 百分百屏幕宽度
+                    可行,该单位全页面共享使用,宽度会随着屏幕的大小发生变化
+                    缺点:兼容性不好
+                4.rem
+                    rem->root em(根节点字体大小)
+        */
+        // console.log(document.documentElement.clientWidth)
+        /*
+            需求:如何得知屏幕(视觉视口)的宽度?
+                1.通过viewport标签,将布局视口变成与视觉视口一样大(实现理想视口状态)
+                2.通过document.documentElement.clientWidth获取到布局视口宽度(相当于间接获取到视觉视口宽度)
+        */
+        var width = document.documentElement.clientWidth;
+        // console.log(width)
+
+        // 将屏幕宽度进行十等分,也就是说每一份fontSize就等于屏幕的十分之一
+        // 此处的10是可以写为任意值的,但是不建议太小,因为浏览器具有最小字体限制
+        var fontSize = width/10;
+
+        // 将1rem的宽度设置为屏幕的百分之10
+        document.documentElement.style.fontSize = `${fontSize}px`;
+        
+    </script>
+</body>
+</html>
