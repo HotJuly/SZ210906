@@ -1,4 +1,5 @@
 /**app.wxss**/
+/* wxss专门写所有页面都共享的样式 */
 .container {
   height: 100%;
   display: flex;

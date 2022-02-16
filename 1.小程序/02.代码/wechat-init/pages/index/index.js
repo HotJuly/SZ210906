@@ -2,6 +2,7 @@
 // 获取应用实例
 const app = getApp()
 
+// Page()可以生成一个页面实例对象,不限制调用次数
 Page({
   data: {
     motto: 'Hello World',
