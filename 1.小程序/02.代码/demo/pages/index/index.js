@@ -20,6 +20,17 @@ Page({
         msg:"我是初始化的数据"
     },
 
+    // Vue声明回调函数写法
+    // methods:{
+    //     handleClick(){}
+    // }
+
+    handleClick(){
+        console.log(1,'handleClick')
+    },
+    handleParent(){
+        console.log(2,'handleParent')
+    },
     /**
      * 生命周期函数--监听页面加载
      */
