@@ -25,8 +25,24 @@ Page({
     //     handleClick(){}
     // }
 
+    changeMsg(){
+        this.setData({
+            msg:"我是修改之后的数据!!!!!"
+        })
+    },
+
     handleClick(){
-        console.log(1,'handleClick')
+        // console.log(1,'handleClick')
+
+        wx.navigateTo({
+        //   url: '../log/log',
+          url: '/pages/log/log',
+        })
+
+        // wx.redirectTo({
+        //   url: '../log/log',
+        // //   url: '/pages/log/log',
+        // })
     },
     handleParent(){
         console.log(2,'handleParent')
@@ -38,12 +54,12 @@ Page({
         // console.log('有数据代理',this.msg)
         // console.log('没有数据代理',this.data.msg)
 
-        console.log(this.data.msg)
-        // this.data.msg="我是修改之后的数据"
-        this.setData({
-            msg:"我是修改之后的数据"
-        })
-        console.log(this.data.msg)
+        // console.log(this.data.msg)
+        // // this.data.msg="我是修改之后的数据"
+        // this.setData({
+        //     msg:"我是修改之后的数据"
+        // })
+        // console.log(this.data.msg)
     },
 
     /**

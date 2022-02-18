@@ -9,14 +9,18 @@
 
 <view class="indexContainer">
     <image class="avatarUrl" src="/static/images/dazuo.jpeg"></image>
-    <text class="username">{{msg}}</text>
+    <text bindtap="changeMsg" class="username">{{msg}}</text>
+    <button bindtap="handleClick">欢迎来到尚硅谷</button>
+
+
     <!-- <view bind:tap="handleParent">
         <button bind:tap="handleClick">欢迎来到尚硅谷</button>
     </view> -->
     <!-- <view capture-catch:tap="handleParent">
         <button capture-bind:tap="handleClick">欢迎来到尚硅谷</button>
     </view> -->
-    <view bindtap="handleParent">
+    <!-- <view bindtap="handleParent">
         <button capture-bind:tap="handleClick">欢迎来到尚硅谷</button>
-    </view>
+    </view> -->
+    
 </view>
