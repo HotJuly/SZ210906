@@ -1,4 +1,5 @@
 // pages/index/index.js
+// Page()会生成一个页面实例对象
 Page({
 
     /**
@@ -23,8 +24,15 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        console.log('有数据代理',this.msg)
-        console.log('没有数据代理',this.data.msg)
+        // console.log('有数据代理',this.msg)
+        // console.log('没有数据代理',this.data.msg)
+
+        console.log(this.data.msg)
+        // this.data.msg="我是修改之后的数据"
+        this.setData({
+            msg:"我是修改之后的数据"
+        })
+        console.log(this.data.msg)
     },
 
     /**

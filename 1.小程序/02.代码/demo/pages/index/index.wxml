@@ -2,6 +2,8 @@
     view标签,相当于html中的div标签,具有块级元素特点
     image标签,相当于html中的img标签,具有行内块元素特点
     text标签,相当于html中的span标签,具有行内元素特点
+        text标签是小程序中的弟中弟,它内部只能嵌套文本
+        text标签内部认得回车,可以实现换行效果
     button标签,相当于html中的button标签,具有行内块元素特点,但是button组件的功能非常强大
  -->
 

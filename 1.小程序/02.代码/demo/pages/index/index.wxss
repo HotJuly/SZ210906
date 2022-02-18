@@ -1,5 +1,5 @@
 /* pages/index/index.wxss */
-
+/* 此处的样式只会作用域当前页面,相当于以前Vue的scoped */
 
 .indexContainer{
     height:100%;
