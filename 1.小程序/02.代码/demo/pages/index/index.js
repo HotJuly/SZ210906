@@ -1,5 +1,6 @@
 // pages/index/index.js
 // Page()会生成一个页面实例对象
+const citySelector = requirePlugin('citySelector');
 Page({
 
     /**
@@ -17,8 +18,9 @@ Page({
     
     */
     data: {
-        msg:"我是初始化的数据",
-        userInfo:{}
+        msg: "我是初始化的数据",
+        userInfo: {},
+        city:""
     },
 
     // Vue声明回调函数写法
@@ -27,48 +29,48 @@ Page({
     // }
 
     // 用于获取用户授权信息(最新版本)
-    getUserProfile(){
+    getUserProfile() {
         // console.log('getUserProfile')
         wx.getUserProfile({
-            desc:"用于测试小程序项目",
-            success:(detail)=>{
+            desc: "用于测试小程序项目",
+            success: (detail) => {
                 // console.log(detail)
                 this.setData({
-                    userInfo:detail.userInfo
+                    userInfo: detail.userInfo
                 })
             },
-            fail(error){
+            fail(error) {
                 console.log(error)
             }
         })
     },
 
     // 用于获取用户授权信息(中期版本)
-    getUserInfo(res){
+    getUserInfo(res) {
         // 一般框架想要传递参数,两种方法
         // 1.通过this
         // 2.通过形参
-        console.log('getUserInfo',res)
+        console.log('getUserInfo', res)
 
         /*
             判断是否获取到了授权信息,如果获取到授权信息就将授权信息展示在页面上
                 通过res.detail.userInfo进行判断
         */
-       const userInfo = res.detail.userInfo;
-       if(userInfo){
+        const userInfo = res.detail.userInfo;
+        if (userInfo) {
             this.setData({
                 userInfo
             })
-       }
+        }
     },
 
-    changeMsg(){
+    changeMsg() {
         this.setData({
-            msg:"我是修改之后的数据!!!!!"
+            msg: "我是修改之后的数据!!!!!"
         })
     },
 
-    handleClick(){
+    handleClick() {
         // console.log(1,'handleClick')
 
         // wx.navigateTo({
@@ -76,13 +78,21 @@ Page({
         //   url: '/pages/log/log',
         // })
 
-        wx.redirectTo({
-          url: '../log/log',
-        //   url: '/pages/log/log',
+        // wx.redirectTo({
+        //   url: '../log/log',
+        // //   url: '/pages/log/log',
+        // })
+
+        const key = 'BZ7BZ-QQWCU-DHWV2-BFJJG-B2JZF-KSBT3'; // 使用在腾讯位置服务申请的key
+        const referer = '七月123'; // 调用插件的app的名称
+        const hotCitys = '北京,上海,深圳,泉州,武汉,西安'; // 用户自定义的的热门城市
+
+        wx.navigateTo({
+            url: `plugin://citySelector/index?key=${key}&referer=${referer}&hotCitys=${hotCitys}`,
         })
     },
-    handleParent(){
-        console.log(2,'handleParent')
+    handleParent() {
+        console.log(2, 'handleParent')
     },
     /**
      * 生命周期函数--监听页面加载
@@ -124,6 +134,13 @@ Page({
      */
     onShow: function () {
         // console.log('------ onShow ------')
+        const selectedCity = citySelector.getCity();
+        // console.log('selectedCity',selectedCity)
+        if(selectedCity){
+            this.setData({
+                city:selectedCity.fullname
+            })
+        }
     },
 
     /**

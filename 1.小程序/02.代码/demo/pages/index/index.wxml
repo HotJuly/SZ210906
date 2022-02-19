@@ -8,16 +8,16 @@
  -->
 
 <view class="indexContainer">
-    <image class="avatarUrl" src="{{userInfo.avatarUrl}}"></image>
+    <!-- <image class="avatarUrl" src="{{userInfo.avatarUrl}}"></image> -->
 
-    <open-data type="userAvatarUrl"></open-data>
+    <!-- <open-data type="userAvatarUrl"></open-data> -->
 
     <!-- <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="avatarUrl">获取用户授权</button> -->
     
     <button bindtap="getUserProfile" class="avatarUrl">获取用户授权</button>
 
     <text bindtap="changeMsg" class="username">{{userInfo.nickName}}</text>
-    <button bindtap="handleClick">欢迎来到尚硅谷</button>
+    <button bindtap="handleClick">欢迎来到{{city}}尚硅谷</button>
 
 
     <!-- <view bind:tap="handleParent">
