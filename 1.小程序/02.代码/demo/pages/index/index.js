@@ -34,15 +34,15 @@ Page({
     handleClick(){
         // console.log(1,'handleClick')
 
-        wx.navigateTo({
-        //   url: '../log/log',
-          url: '/pages/log/log',
-        })
-
-        // wx.redirectTo({
-        //   url: '../log/log',
-        // //   url: '/pages/log/log',
+        // wx.navigateTo({
+        // //   url: '../log/log',
+        //   url: '/pages/log/log',
         // })
+
+        wx.redirectTo({
+          url: '../log/log',
+        //   url: '/pages/log/log',
+        })
     },
     handleParent(){
         console.log(2,'handleParent')
@@ -60,34 +60,37 @@ Page({
         //     msg:"我是修改之后的数据"
         // })
         // console.log(this.data.msg)
+
+        debugger
+        console.log('------ onLoad ------')
     },
 
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
-
+        console.log('------ onReady ------')
     },
 
     /**
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+        console.log('------ onShow ------')
     },
 
     /**
      * 生命周期函数--监听页面隐藏
      */
     onHide: function () {
-
+        console.log('------ onHide ------')
     },
 
     /**
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-
+        console.log('------ onUnload ------')
     },
 
     /**
