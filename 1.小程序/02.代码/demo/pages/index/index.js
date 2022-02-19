@@ -17,13 +17,50 @@ Page({
     
     */
     data: {
-        msg:"我是初始化的数据"
+        msg:"我是初始化的数据",
+        userInfo:{}
     },
 
     // Vue声明回调函数写法
     // methods:{
     //     handleClick(){}
     // }
+
+    // 用于获取用户授权信息(最新版本)
+    getUserProfile(){
+        // console.log('getUserProfile')
+        wx.getUserProfile({
+            desc:"用于测试小程序项目",
+            success:(detail)=>{
+                // console.log(detail)
+                this.setData({
+                    userInfo:detail.userInfo
+                })
+            },
+            fail(error){
+                console.log(error)
+            }
+        })
+    },
+
+    // 用于获取用户授权信息(中期版本)
+    getUserInfo(res){
+        // 一般框架想要传递参数,两种方法
+        // 1.通过this
+        // 2.通过形参
+        console.log('getUserInfo',res)
+
+        /*
+            判断是否获取到了授权信息,如果获取到授权信息就将授权信息展示在页面上
+                通过res.detail.userInfo进行判断
+        */
+       const userInfo = res.detail.userInfo;
+       if(userInfo){
+            this.setData({
+                userInfo
+            })
+       }
+    },
 
     changeMsg(){
         this.setData({
@@ -61,22 +98,32 @@ Page({
         // })
         // console.log(this.data.msg)
 
-        debugger
-        console.log('------ onLoad ------')
+        // debugger
+        // console.log('------ onLoad ------')
+
+        // wx.getUserInfo({
+        //     success:(detail)=>{
+        //         // console.log(detail)
+        //         this.setData({
+        //             userInfo:detail.userInfo
+        //         })
+        //     }
+        // })
+
     },
 
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
-        console.log('------ onReady ------')
+        // console.log('------ onReady ------')
     },
 
     /**
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        console.log('------ onShow ------')
+        // console.log('------ onShow ------')
     },
 
     /**

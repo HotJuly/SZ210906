@@ -8,8 +8,15 @@
  -->
 
 <view class="indexContainer">
-    <image class="avatarUrl" src="/static/images/dazuo.jpeg"></image>
-    <text bindtap="changeMsg" class="username">{{msg}}</text>
+    <image class="avatarUrl" src="{{userInfo.avatarUrl}}"></image>
+
+    <open-data type="userAvatarUrl"></open-data>
+
+    <!-- <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="avatarUrl">获取用户授权</button> -->
+    
+    <button bindtap="getUserProfile" class="avatarUrl">获取用户授权</button>
+
+    <text bindtap="changeMsg" class="username">{{userInfo.nickName}}</text>
     <button bindtap="handleClick">欢迎来到尚硅谷</button>
 
 
