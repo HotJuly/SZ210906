@@ -39,6 +39,7 @@
 
 .recommendContainer .recommendScroll{
     display:flex;
+    height:300rpx;
 }
 
 .recommendContainer .recommendScroll .recommendItem{
@@ -80,35 +81,5 @@
     overflow: hidden;
 }
 
-.header .title{
-    font-size: 28rpx;
-}
-
-.header .moreContent{
-    /*
-        清除浮动的影响:
-            1.给兄弟元素使用clear:both;
-            2.开启BFC
-                -overflow不为默认值
-                -display为inline-block,table,table-cell
-                -根节点html
-                -float为left或者right
-                -position值不为相对定位
-    */
-    overflow: hidden;
-}
-
-.header .moreContent .moreTitle{
-    float:left;
-    font-size:30rpx;
-}
-
-.header .moreContent .more{
-    float:right;
-    font-size:24rpx;
-    padding:10rpx 20rpx;
-    border: 1rpx solid;
-    border-radius: 15rpx;
-}
 
 /* 推荐歌曲区域结束 */

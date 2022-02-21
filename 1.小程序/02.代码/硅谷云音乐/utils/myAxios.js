@@ -8,15 +8,21 @@
             1.保留重复出现的代码
             2.将不同的内容提取为形参
             3.谁调用谁传入
+
+        封装组件
+            1.保留重复出现的部分
+            2.将不同的内容提取为props进行传入
+            3.谁使用谁传入
 */
-const baseUrl = 'http://localhost:3000';
+import config from './config';
+// const baseUrl = 'http://localhost:3000';
 export default function(url,data={},method="GET"){
     // let result;
 
     return new Promise((resolve,reject)=>{
         // 发送请求是同步发送,返回响应是异步返回
         wx.request({
-            url:baseUrl + url,
+            url:config.mpHost + url,
             data,
             method,
             success: (res) => {
