@@ -6,7 +6,7 @@ Page({
      */
     data: {
         // 该数组用于存储首页轮播图数据
-        banners:[]
+        banners: []
     },
 
     /**
@@ -31,20 +31,22 @@ Page({
                     -请求地址
                     -请求参数
         */
-       wx.request({
-           url:"http://localhost:3000/banner",
-           data:{
-               type:2
-           },
-           success:(res)=>{
-            //    此处返回的res是响应报文对象,其中包括了响应头和响应体数据
-            // 我们只需要响应体数据
-            // console.log(res.data)
-            this.setData({
-                banners:res.data.banners
-            })
-           }
-       })
+
+        // console.log('wx', wx)
+        wx.request({
+            url: "http://localhost:3000/banner",
+            data: {
+                type: 2
+            },
+            success: (res) => {
+                //    此处返回的res是响应报文对象,其中包括了响应头和响应体数据
+                // 我们只需要响应体数据
+                // console.log(res.data)
+                this.setData({
+                    banners: res.data.banners
+                })
+            }
+        })
     },
 
     /**
