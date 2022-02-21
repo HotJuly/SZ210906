@@ -30,3 +30,85 @@
 .indexContainer .nav .navItem .navTitle{
     font-size:28rpx;
 }
+
+/* 推荐歌曲区域开始 */
+
+.recommendContainer{
+    padding:0 20rpx;
+}
+
+.recommendContainer .recommendScroll{
+    display:flex;
+}
+
+.recommendContainer .recommendScroll .recommendItem{
+    width:200rpx;
+    margin-right:20rpx;
+}
+
+.recommendContainer .recommendScroll .recommendItem .recommendImg{
+    width:200rpx;
+    height:200rpx;
+    border-radius: 20rpx;
+}
+
+.recommendContainer .recommendScroll .recommendItem .recommendName{
+    /*
+        需求:多行文本溢出隐藏,并显示省略号
+        拆解:
+            1.告知多少行文本之后需要隐藏
+            2.告知文本的排列方向
+    */
+
+    /*
+        需求:单行文本溢出隐藏,并显示省略号
+        拆解:
+            1.禁止文本换行
+            2.溢出隐藏
+            3.显示省略号
+
+            
+            width:100%;
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow:ellipsis;
+    */
+    width:100%;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow: hidden;
+}
+
+.header .title{
+    font-size: 28rpx;
+}
+
+.header .moreContent{
+    /*
+        清除浮动的影响:
+            1.给兄弟元素使用clear:both;
+            2.开启BFC
+                -overflow不为默认值
+                -display为inline-block,table,table-cell
+                -根节点html
+                -float为left或者right
+                -position值不为相对定位
+    */
+    overflow: hidden;
+}
+
+.header .moreContent .moreTitle{
+    float:left;
+    font-size:30rpx;
+}
+
+.header .moreContent .more{
+    float:right;
+    font-size:24rpx;
+    padding:10rpx 20rpx;
+    border: 1rpx solid;
+    border-radius: 15rpx;
+}
+
+/* 推荐歌曲区域结束 */

@@ -1,4 +1,5 @@
 // pages/index/index.js
+import myAxios from '../../utils/myAxios.js';
 Page({
 
     /**
@@ -6,13 +7,16 @@ Page({
      */
     data: {
         // 该数组用于存储首页轮播图数据
-        banners: []
+        banners: [],
+
+        // 该数组用于存储首页推荐歌曲区域数据
+        recommendList:[]
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function (options) {
+    onLoad:async function (options) {
         /*
             1.在哪发
                 如果是Vue的话,一般就是created或者mounted
@@ -33,20 +37,46 @@ Page({
         */
 
         // console.log('wx', wx)
-        wx.request({
-            url: "http://localhost:3000/banner",
-            data: {
-                type: 2
-            },
-            success: (res) => {
-                //    此处返回的res是响应报文对象,其中包括了响应头和响应体数据
-                // 我们只需要响应体数据
-                // console.log(res.data)
-                this.setData({
-                    banners: res.data.banners
-                })
-            }
+
+        // 用于请求轮播图数据
+        // wx.request({
+        //     url: "http://localhost:3000/banner",
+        //     data: {
+        //         type: 2
+        //     },
+        //     success: (res) => {
+        //         //    此处返回的res是响应报文对象,其中包括了响应头和响应体数据
+        //         // 我们只需要响应体数据
+        //         // console.log(res.data)
+        //         this.setData({
+        //             banners: res.data.banners
+        //         })
+        //     }
+        // })
+        let result =await myAxios("/banner",{type: 2});
+        // console.log('result',result)
+        this.setData({
+            banners: result.banners
         })
+
+        //用于请求推荐歌单数据
+        
+        // wx.request({
+        //     url: "http://localhost:3000/personalized",
+        //     success: (res) => {
+        //         //    此处返回的res是响应报文对象,其中包括了响应头和响应体数据
+        //         // 我们只需要响应体数据
+        //         // console.log(res.data)
+        //         this.setData({
+        //             recommendList: res.data.result
+        //         })
+        //     }
+        // })
+        let result2 = await myAxios('/personalized');
+        this.setData({
+            recommendList: result2.result
+        })
+
     },
 
     /**
