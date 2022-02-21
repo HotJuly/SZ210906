@@ -77,6 +77,28 @@ Page({
             recommendList: result2.result
         })
 
+        // 用于请求排行榜区域数据
+        let topList = [];
+        let ids = [2,4,7,10,29];
+        let index = 0;
+
+        while(index<ids.length){
+            let result3 = await myAxios('/top/list',{idx:ids[index++]});
+
+            let obj = {
+                id:result3.playlist.id,
+                name:result3.playlist.name,
+                list:result3.playlist.tracks.slice(0,3).map((item)=>{
+                    return item.al
+                })
+            };
+            // console.log('result3',obj)
+            topList.push(obj);
+            this.setData({
+                topList
+            })
+        }
+
     },
 
     /**
