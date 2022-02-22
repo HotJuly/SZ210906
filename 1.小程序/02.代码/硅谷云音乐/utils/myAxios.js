@@ -27,14 +27,14 @@ export default function(url,data={},method="GET"){
             method,
             success: (res) => {
                 // console.log('res',res)
-                if(res.statusCode>=200&&res.statusCode<=299){
+                // if(res.statusCode>=200&&res.statusCode<=299){
                     // 由于res是响应报文,其中具有响应头和响应体
                     // 我们开发时,只需要用到响应体数据,所以该出直接返回了res.data
 
-                    resolve(res.data)
-                }else{
-                    reject(res)
-                }
+                resolve(res.data)
+                // }else{
+                //     reject(res)
+                // }
             }
         })
     })

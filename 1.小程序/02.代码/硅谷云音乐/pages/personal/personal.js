@@ -12,6 +12,14 @@ Page({
         moveTransition:""
     },
 
+    // 用于跳转到登录界面
+    toLogin(){
+        // console.log('toLogin')
+        wx.navigateTo({
+            url:"/pages/login/login"
+        })
+    },
+
     // 用于监视用户手指按下事件
     handleTouchStart(event){
         // console.log('handleTouchStart',event)
