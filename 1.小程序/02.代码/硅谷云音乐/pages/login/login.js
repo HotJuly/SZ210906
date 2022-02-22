@@ -104,7 +104,19 @@ Page({
 
         const codeFn = {
             200() {
+                wx.showToast({
+                    title: "登陆成功,即将跳转",
+                    icon:"none"
+                });
+                wx.switchTab({
+                    url:"/pages/personal/personal"
+                })
+                // console.log('result',result)
 
+                wx.setStorage({
+                    key:"userInfo",
+                    data:result.profile
+                });
             },
             400() {
                 // 能进入这里,就说明用户手机号格式错误
