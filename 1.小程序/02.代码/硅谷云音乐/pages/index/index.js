@@ -10,13 +10,13 @@ Page({
         banners: [],
 
         // 该数组用于存储首页推荐歌曲区域数据
-        recommendList:[]
+        recommendList: []
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad:async function (options) {
+    onLoad: async function (options) {
         /*
             1.在哪发
                 如果是Vue的话,一般就是created或者mounted
@@ -53,14 +53,23 @@ Page({
         //         })
         //     }
         // })
-        let result =await myAxios("/banner",{type: 2});
-        // console.log('result',result)
-        this.setData({
-            banners: result.banners
-        })
+        // let result =await myAxios("/banner",{type: 2});
+        // // console.log('result',result)
+        // this.setData({
+        //     banners: result.banners
+        // })
+
+        myAxios("/banner", {
+                type: 2
+            })
+            .then((result) => {
+                this.setData({
+                    banners: result.banners
+                })
+            })
 
         //用于请求推荐歌单数据
-        
+
         // wx.request({
         //     url: "http://localhost:3000/personalized",
         //     success: (res) => {
@@ -72,31 +81,56 @@ Page({
         //         })
         //     }
         // })
-        let result2 = await myAxios('/personalized');
-        this.setData({
-            recommendList: result2.result
-        })
+        // let result2 = await myAxios('/personalized');
+        // this.setData({
+        //     recommendList: result2.result
+        // })
+
+        myAxios('/personalized')
+            .then((result2) => {
+                this.setData({
+                    recommendList: result2.result
+                })
+            })
 
         // 用于请求排行榜区域数据
         let topList = [];
-        let ids = [2,4,7,10,29];
+        let ids = [2, 4, 7, 10, 29];
         let index = 0;
 
-        while(index<ids.length){
-            let result3 = await myAxios('/top/list',{idx:ids[index++]});
+        while (index < ids.length) {
+            // let result3 = await myAxios('/top/list',{idx:ids[index++]});
 
-            let obj = {
-                id:result3.playlist.id,
-                name:result3.playlist.name,
-                list:result3.playlist.tracks.slice(0,3).map((item)=>{
-                    return item.al
+            // let obj = {
+            //     id:result3.playlist.id,
+            //     name:result3.playlist.name,
+            //     list:result3.playlist.tracks.slice(0,3).map((item)=>{
+            //         return item.al
+            //     })
+            // };
+            // // console.log('result3',obj)
+            // topList.push(obj);
+            // this.setData({
+            //     topList
+            // })
+
+            myAxios('/top/list', {
+                    idx: ids[index++]
                 })
-            };
-            // console.log('result3',obj)
-            topList.push(obj);
-            this.setData({
-                topList
-            })
+                .then((result3) => {
+                    let obj = {
+                        id: result3.playlist.id,
+                        name: result3.playlist.name,
+                        list: result3.playlist.tracks.slice(0, 3).map((item) => {
+                            return item.al
+                        })
+                    };
+                    // console.log('result3',obj)
+                    topList.push(obj);
+                    this.setData({
+                        topList
+                    })
+                })
         }
 
     },

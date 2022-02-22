@@ -16,7 +16,7 @@
         wx:for-item="banner"
         wx:key="id"
         >
-            <image class="bannerImg" src="{{banner.pic}}"></image>
+            <image lazy-load class="bannerImg" src="{{banner.pic}}"></image>
         </swiper-item>
     </swiper>
 
@@ -59,7 +59,7 @@
             wx:for="{{recommendList}}"
             wx:key="id"
             >
-                <image class="recommendImg" src="{{item.picUrl}}"></image>
+                <image class="recommendImg"	lazy-load src="{{item.picUrl}}"></image>
                 <view class="recommendName">
                     {{item.name}}
                 </view>
@@ -84,7 +84,7 @@
                     wx:for-item="song"
                     wx:for-index="songIndex"
                     >
-                        <image class="songImg" src="{{song.picUrl}}"></image>
+                        <image class="songImg" lazy-load src="{{song.picUrl}}"></image>
                         <view class="songIndex">{{songIndex+1}}</view>
                         <view class="songName">{{song.name}}</view>
                     </view>
