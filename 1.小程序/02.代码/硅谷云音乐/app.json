@@ -28,7 +28,7 @@
             },
             {
                 "pagePath": "pages/personal/personal",
-                "text": "我的",
+                "text": "个人中心",
                 "iconPath": "/static/images/tabs/tab-my.png",
                 "selectedIconPath": "/static/images/tabs/tab-my-current.png"
             }

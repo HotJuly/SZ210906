@@ -170,7 +170,7 @@ Page({
     handleInput(event) {
         // 小程序中,想要通过标签给事件回调函数传参,需要通过自定义属性实现
         // 通过event.detail.value可以读取到input框的数据
-        // console.log('handleInput',event.target.dataset.type)
+        // console.log('handleInput',event)
 
         // 通过自定义属性得知,当前是谁触发了该回调函数
         let type = event.target.dataset.type

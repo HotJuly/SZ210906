@@ -12,7 +12,10 @@ Page({
         moveTransition:"",
 
         // 用于存储用户的个人信息
-        userInfo:{}
+        userInfo:{},
+
+        // 用于存储用户的播放记录
+        playList:[]
     },
 
     // 用于跳转到登录界面
@@ -72,7 +75,7 @@ Page({
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow: function () {
+    onShow:async function () {
         // 读取Storage中存储的用户信息
         // 如果有用户信息,就更新到data中,并在页面上进行展示
         let userInfo = wx.getStorageSync('userInfo');
@@ -80,7 +83,17 @@ Page({
             this.setData({
                 userInfo
             })
+
+           const result = await this.$myAxios('/user/record',{uid:userInfo.userId});
+
+        //    console.log('result',result)
+            this.setData({
+                playList:result.weekData.map(function(item){
+                    return item.song.al
+                })
+            })
         }
+
     },
 
     /**
