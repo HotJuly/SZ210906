@@ -5,7 +5,19 @@ Page({
      * 页面的初始数据
      */
     data: {
+        // 用于存储当前页面的导航栏数据
+        navList:[],
 
+        // 用于控制下划线的显示
+        navId:null
+    },
+
+    // 用于修改navId,从而控制下划线的显示
+    changeNavId(event){
+        this.setData({
+            navId:event.currentTarget.dataset.id
+            // navId:event.target.dataset.id
+        })
     },
 
     /**
@@ -25,8 +37,13 @@ Page({
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow: function () {
-
+    onShow:async function () {
+        const result = await this.$myAxios("/video/group/list");
+        // console.log('result',result)
+        this.setData({
+            navList:result.data.slice(0,13),
+            navId:result.data[0].id
+        })
     },
 
     /**
