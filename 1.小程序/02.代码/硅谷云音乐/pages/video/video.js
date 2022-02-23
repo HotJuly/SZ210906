@@ -9,7 +9,10 @@ Page({
         navList:[],
 
         // 用于控制下划线的显示
-        navId:null
+        navId:null,
+
+        // 用于存储视频列表相关数据
+        videoList:[]
     },
 
     // 用于修改navId,从而控制下划线的显示
@@ -44,6 +47,17 @@ Page({
             navList:result.data.slice(0,13),
             navId:result.data[0].id
         })
+
+        const result2 = await this.$myAxios('/video/group',{
+            id:this.data.navId
+        })
+
+        this.setData({
+            videoList:result2.datas.map((item)=>{
+                return item.data
+            })
+        })
+        // console.log('result2',result2)
     },
 
     /**

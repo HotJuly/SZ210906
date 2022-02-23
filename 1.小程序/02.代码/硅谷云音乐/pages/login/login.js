@@ -71,7 +71,8 @@ Page({
 
         const result = await myAxios("/login/cellphone", {
             phone,
-            password
+            password,
+            _isLogin:true
         });
 
         const code = result.code;

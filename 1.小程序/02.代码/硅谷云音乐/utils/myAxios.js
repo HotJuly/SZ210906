@@ -25,11 +25,29 @@ export default function(url,data={},method="GET"){
             url:config.mpHost + url,
             data,
             method,
+            header:{
+                Cookie:wx.getStorageSync('cookie')
+            },
             success: (res) => {
                 // console.log('res',res)
                 // if(res.statusCode>=200&&res.statusCode<=299){
                     // 由于res是响应报文,其中具有响应头和响应体
                     // 我们开发时,只需要用到响应体数据,所以该出直接返回了res.data
+                // console.log(url,res)
+
+                // 我们需要保存的是MUSIC_U开头的cookie
+                // res.cookies内部存储这当前服务器返回的所有cookie
+                // 如果当前返回的是登录接口的响应,那么需要找到MUSIC_U开头的cookie
+
+                if(data._isLogin){
+                    const cookie = res.cookies.find((cookie)=>{
+                        return cookie.startsWith('MUSIC_U');
+                    })
+    
+                    // console.log('cookie',cookie)
+    
+                    wx.setStorageSync('cookie',cookie)
+                }
 
                 resolve(res.data)
                 // }else{
