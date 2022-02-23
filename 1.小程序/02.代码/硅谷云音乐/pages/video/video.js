@@ -15,6 +15,41 @@ Page({
         videoList:[]
     },
 
+    // 用于监视视频开发播放或者继续播放
+    handlePlay(event){
+        // console.log('handlePlay',event)
+        // console.log(this.oldVId)
+
+        // 1.通过event.currentTarget.id可以获取到当前触发播放事件的video组件id
+        let vid = event.currentTarget.id;
+
+        // this.oldVId的判断是为了防止没有上一个视频(第一次播放的情况)
+        // this.oldVId!==vid的判断是为了防止上一个视频和当前视频是同一个视频(用户重复播放同一个视频的情况)
+        if(this.oldVId&&this.oldVId!==vid){
+            // 3.先使用API获取到video的上下文对象
+            let videoContext = wx.createVideoContext(this.oldVId);
+    
+            // 4.使用上下文对象的API停止某个视频的播放
+            videoContext.pause();
+        }
+
+
+
+        // 2.在页面实例对象身上添加一个oldVId属性,用于记录上一个视频的id
+        this.oldVId = vid;
+    },
+
+    // 用于测试video组件相关API
+    testApi(){
+        // console.log('testApi')
+
+		// 1.先使用API获取到video的上下文对象
+        let videoContext = wx.createVideoContext("62CBA2172DF33DA3273A3BBFC7094902");
+
+        // 2.使用上下文对象的API停止某个视频的播放
+        videoContext.pause();
+    },
+
     // 专门用于请求视频列表数据
     async getVideoList(){
 
