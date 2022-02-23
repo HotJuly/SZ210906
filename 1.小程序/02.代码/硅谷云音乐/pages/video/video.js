@@ -15,12 +15,48 @@ Page({
         videoList:[]
     },
 
+    // 专门用于请求视频列表数据
+    async getVideoList(){
+
+        // 每次请求新的列表之前,先清空旧的数据,实现页面白屏效果,优化用户体验
+        this.setData({
+            videoList:[]
+        })
+
+        const result2 = await this.$myAxios('/video/group',{
+            id:this.data.navId
+        })
+        // console.log(2);
+
+        this.setData({
+            videoList:result2.datas.map((item)=>{
+                return item.data
+            })
+        })
+    },
+
     // 用于修改navId,从而控制下划线的显示
-    changeNavId(event){
+    async changeNavId(event){
         this.setData({
             navId:event.currentTarget.dataset.id
             // navId:event.target.dataset.id
         })
+
+        // 弹出loading,优化用户体验
+        wx.showLoading({
+            title:"加载中...",
+            mask:true
+        });
+
+        // console.log(1);
+
+
+        await this.getVideoList();
+
+        // 隐藏loading
+        wx.hideLoading();
+        
+        // console.log(3);
     },
 
     /**
@@ -48,16 +84,7 @@ Page({
             navId:result.data[0].id
         })
 
-        const result2 = await this.$myAxios('/video/group',{
-            id:this.data.navId
-        })
-
-        this.setData({
-            videoList:result2.datas.map((item)=>{
-                return item.data
-            })
-        })
-        // console.log('result2',result2)
+        this.getVideoList();
     },
 
     /**

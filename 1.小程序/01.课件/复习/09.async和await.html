@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    </style>
+</head>
+<body>
+    <script>
+        /*
+            async和await最终都会被解析成为Promise+then方法的代码
+            async函数的返回值一定是一个promise对象
+                pending
+                    默认返回pending状态的promise对象,如果代码没有全部执行结束之前,状态一直保持pending
+                resolved
+                    只要async函数中所有的代码都成功执行结束,那么返回的promise状态就会变为成功
+                rejected
+                    如果async函数中代码出现报错没能执行结束,那么返回的promise状态就会变为失败
+
+            async函数中如果写了return,那么return的结果会变成promise对象的result值
+        */
+        async function a(){
+            console.log(3);
+
+            await new Promise((resolve,reject)=>{
+                console.log(8);
+                // 无论await后面跟着什么状态的promise,await之后的代码,都会延迟执行
+                reject()
+            })
+
+            setTimeout(()=>{
+                console.log(4)
+            },0)
+
+            new Promise((resolve)=>{
+                console.log(5);
+                resolve();
+            })
+
+            setTimeout(()=>{
+                console.log(6)
+            },1000)
+
+            console.log(7)
+
+            return 123;
+        }
+
+        //方便理解版本
+        // function a(){
+        //     console.log(3);
+
+        //     return new Promise((resolve)=>{
+        //         console.log(8);
+        //         // 无论await后面跟着什么状态的promise,await之后的代码,都会延迟执行
+        //         resolve()
+        //     })
+        //     .then(()=>{
+        //         setTimeout(()=>{
+        //             console.log(4)
+        //         },0)
+
+        //         new Promise((resolve)=>{
+        //             console.log(5);
+        //             resolve();
+        //         })
+
+        //         setTimeout(()=>{
+        //             console.log(6)
+        //         },1000)
+
+        //         console.log(7)
+
+        //         return 123;
+        //     })
+        // }
+
+        console.log(1);
+        var b=a();
+        console.log('b',b)
+        console.log(2);
+    </script>
+</body>
+</html>
