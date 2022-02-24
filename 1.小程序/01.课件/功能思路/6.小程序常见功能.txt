@@ -1,0 +1,40 @@
+小程序常见功能:
+	1.下拉刷新
+	2.上拉加载更多
+
+需求:当用户下拉时,需要请求最新的列表数据
+拆解:
+	1.当用户下拉时
+		如何监视用户下拉操作
+			下拉操作分为两种
+				下拉页面
+					代表刷新整个页面所有的内容
+
+					1.通过页面的onPullDownRefresh事件监听,可以监视页面的下拉操作(onPullDownRefresh在onUnload生命周期下面可以找到)
+						问题:下拉页面没有触发该事件监听
+						原因:因为下拉页面需要开启动画才能触发该监听
+					2.开启页面下拉动画
+						方法一:设置app.json->window->enablePullDownRefresh:true
+							该方法会开启所有页面的下拉刷新动画
+
+						方法二:设置video.json->enablePullDownRefresh:true
+							该方法只会开启当前页面的下拉刷新动画
+		
+				下拉scroll-view列表
+					代表刷新scroll-view区域的数据
+
+					1.通过scroll-view组件的refresherrefresh事件监听,可以监视scroll-view的下拉操作
+						问题:下拉scroll-view没有触发该事件监听
+						原因:因为下拉scroll-view需要开启动画才能触发该监听
+
+					2.开启页面下拉动画
+						在scroll-view组件上添加refresher-enabled属性,就可以开启下拉动画
+						问题:数据已经请求结束,但是下拉动画没有自动收回
+						解决:需要开发者自动关闭下拉动画
+
+					3.使用状态控制scroll-view的标签属性refresher-triggered
+						将refresher-triggered属性值设置为false,那么下拉动画就会收回
+
+	2.请求最新的列表数据
+		只要重新请求当前列表数据接口,就是刷新
+		之前已经封装了一个API:getVideoList

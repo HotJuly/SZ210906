@@ -7,33 +7,26 @@
   </view>
 
   <!-- 导航栏区域 -->
-  <scroll-view class="navScroll" 
-    enable-flex 
-    scroll-x>
-    <view 
-    wx:for="{{navList}}"
-    wx:key="id" 
-    class="navItem {{item.id===navId?'active':''}}"
-    bindtap="changeNavId"
-    data-id="{{item.id}}"
-    >
+  <scroll-view class="navScroll" enable-flex scroll-x>
+    <view wx:for="{{navList}}" wx:key="id" class="navItem {{item.id===navId?'active':''}}" bindtap="changeNavId" data-id="{{item.id}}">
       <text>{{item.name}}</text>
     </view>
   </scroll-view>
 
   <!-- videoList区域 -->
-  <scroll-view class="videoList" scroll-y>
-    <view 
-    class="videoItem"
-    wx:for="{{videoList}}"
-    wx:key="vid"
-    >
-      <video 
-      id="{{item.vid}}" 
-      src="{{item.urlInfo.url}}" 
-      class="common"
-      bindplay="handlePlay"
-      ></video>
+  <scroll-view 
+  class="videoList" 
+  scroll-y
+  refresher-enabled
+  refresher-triggered="{{isTrigger}}"
+  bindrefresherrefresh="handlePullDown"
+  >
+    <view class="videoItem" wx:for="{{videoList}}" wx:key="vid">
+      <video wx:if="{{currentId===item.vid}}" id="{{item.vid}}" src="{{item.urlInfo.url}}" class="common" bindplay="handlePlay"></video>
+
+      <image wx:else id="{{item.vid}}" class="common" src="{{item.coverUrl}}"
+      bindtap="changeVideo"></image>
+
       <view class="content">{{item.title}}</view>
       <view class="footer">
         <image class="avatar" src="{{item.creator.avatarUrl}}"></image>

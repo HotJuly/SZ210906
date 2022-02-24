@@ -12,7 +12,44 @@ Page({
         navId:null,
 
         // 用于存储视频列表相关数据
-        videoList:[]
+        videoList:[],
+
+        // 用于控制video组件和image组件的切换
+        currentId:null,
+
+        // 用于控制scroll-view区域下拉刷新动画的展示
+        isTrigger:false
+    },
+
+    // 用于监视用户下拉scroll-view区域,实现刷新列表功能
+    async handlePullDown(){
+        // console.log('handlePullDown')
+        await this.getVideoList();
+        this.setData({
+            isTrigger:false
+        })
+    },
+
+    // 用于监视用户点击某张图片,从而切换对应的video组件
+    changeVideo(event){
+        // console.log('changeVideo',event)
+
+        // 1.获取到当前image组件的id属性,也就能知道等下需要显示的video标签是谁
+        let currentId = event.currentTarget.id;
+
+        // 2.将vid更新到data中的currentId中,实现页面上组件之间的切换显示效果
+        // 注意:小程序更新data数据是同步更新,但是更新视图是异步更新
+        this.setData({
+            currentId
+        },()=>{
+            // setData可以传入第二个参数,数据类型为函数,该函数会在视图更新之后才会执行
+            // image组件的id与video组件的id相同,所以此处直接使用image组件的id即可
+            const videoContext = wx.createVideoContext(currentId);
+
+            // 调用videoContext的API实现视频播放功能
+            videoContext.play();
+        })
+
     },
 
     // 用于监视视频开发播放或者继续播放
@@ -140,7 +177,8 @@ Page({
      * 页面相关事件处理函数--监听用户下拉动作
      */
     onPullDownRefresh: function () {
-
+        // console.log('onPullDownRefresh')
+        this.getVideoList();
     },
 
     /**
