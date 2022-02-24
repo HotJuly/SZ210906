@@ -21,6 +21,18 @@ Page({
         isTrigger:false
     },
 
+    // 用于监视用户上拉scroll-view触底操作,实现加载更多数据功能
+    handleReachBottom(){
+        // console.log('handleReachBottom')
+        if(this.timer)return;
+        this.timer = setTimeout(()=>{
+            this.setData({
+                videoList:[...this.data.videoList,...this.data.videoList.slice(0,8)]
+            })
+            this.timer=null;
+        },2000)
+    },
+
     // 用于监视用户下拉scroll-view区域,实现刷新列表功能
     async handlePullDown(){
         // console.log('handlePullDown')
@@ -149,6 +161,39 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow:async function () {
+
+        // 获取到Storage中存储的cookie数据
+        const cookie = wx.getStorageSync('cookie');
+        if(!cookie){
+            // 能进入该判断,就说明用户没有cookie数据,也就是没有登录
+
+            wx.showModal({
+                title:"请先登录",
+                content:"该功能需要登录账号",
+                confirmText:"去登陆",
+                cancelText:"回到首页",
+                success({confirm,cancel}){
+                    // console.log('success',data)
+                    // 无论用户点击确定还是取消,都会触发成功的回调函数
+                    // 成功回调的形参中可以得到confirm,cancel属性用于判断用户点击的按钮是确定还是取消
+                    if(confirm){
+                        wx.redirectTo({
+                          url: '/pages/login/login',
+                        })
+                    }else{
+                        wx.switchTab({
+                          url: '/pages/index/index',
+                        })
+                    }
+                },
+                fail(){
+                    console.log('fail')
+                }
+            })
+
+            return;
+        }
+
         const result = await this.$myAxios("/video/group/list");
         // console.log('result',result)
         this.setData({
@@ -185,13 +230,31 @@ Page({
      * 页面上拉触底事件的处理函数
      */
     onReachBottom: function () {
-
+        console.log('onReachBottom')
     },
 
     /**
      * 用户点击右上角分享
      */
-    onShareAppMessage: function () {
+    onShareAppMessage: function ({from,target}) {
+        // console.log('onShareAppMessage',from,target)
+        if(from==="button"){
+            // 能进入这里就说明用户触发的渠道是点击button组件
+            const {title,imageurl} = target.dataset;
+            // console.log(target.dataset,imageUrl)
+            return {
+                title,
+                imageUrl:imageurl,
+                path:"/pages/video/video"
+            }
+        }else{
+            // 能进入这里就说明用户触发的渠道是点击右上角菜单
 
+            return {
+                title:"硅谷云音乐",
+                path:"/pages/index/index",
+                imageUrl:"/static/images/dazuo.jpeg"
+            }
+        }
     }
 })

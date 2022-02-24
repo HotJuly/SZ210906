@@ -20,6 +20,7 @@
   refresher-enabled
   refresher-triggered="{{isTrigger}}"
   bindrefresherrefresh="handlePullDown"
+  bindscrolltolower="handleReachBottom"
   >
     <view class="videoItem" wx:for="{{videoList}}" wx:key="vid">
       <video wx:if="{{currentId===item.vid}}" id="{{item.vid}}" src="{{item.urlInfo.url}}" class="common" bindplay="handlePlay"></video>
@@ -40,7 +41,7 @@
             <text class="iconfont icon-pinglun1"></text>
             <text class="count">{{item.commentCount}}</text>
           </text>
-          <button class="item btn">
+          <button class="item btn" open-type="share" data-title="{{item.title}}" data-imageUrl="{{item.coverUrl}}">
             <text class="iconfont icon-gengduo"></text>
           </button>
         </view>
