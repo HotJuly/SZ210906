@@ -1,4 +1,4 @@
 export default {
     mpHost:'http://localhost:3000',
-    checkPermission:["pages/video/video","pages/personal/personal"]
+    checkPermission:["pages/video/video"]
 }
