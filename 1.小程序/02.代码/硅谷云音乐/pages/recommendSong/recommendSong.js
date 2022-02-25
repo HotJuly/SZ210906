@@ -62,7 +62,7 @@ Page({
             recommendList:recommend
         })
 
-        this.$PubSub.subscribe('switchType',(msg,type)=>{
+        this.token = this.$PubSub.subscribe('switchType',(msg,type)=>{
             // console.log('subscribe switchType',msg,type)
             let {currentIndex,recommendList} = this.data;
 
@@ -118,7 +118,7 @@ Page({
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-
+        this.$PubSub.unsubscribe(this.token);
     },
 
     /**

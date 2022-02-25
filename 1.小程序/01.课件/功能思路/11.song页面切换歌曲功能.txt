@@ -62,6 +62,7 @@
 							动作:
 								订阅	->	PubSub.subscribe(消息名称,用于接收数据的回调函数)
 								发布	->	PubSub.publish(消息名称,需要发布的数据)
+								解绑	->	PubSub.unsubscribe(token);
 
 							感觉可以实现任意两个组件之间的数据通信
 							约束:

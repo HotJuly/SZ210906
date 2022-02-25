@@ -50,36 +50,19 @@ Page({
 
         const id = event.currentTarget.id;
 
-        this.$PubSub.subscribe('sendId',async (msg,songId)=>{
-            // console.log('subscibe sendId',msg,songId)
-
-            this.setData({
-                songId
-            })
-
-            const promise1 = this.getMusicDetail();
-
-            const promise2 = this.getMusicUrl();
-
-            await Promise.all([promise1,promise2]);
-
-            this.backgroundAudioManager.src = this.data.musicUrl;
-            this.backgroundAudioManager.title = this.data.songObj.name;
-
-            this.setData({
-                isPlay:true
-            })
-        })
-
         // 发布消息,触发切换歌曲的流程1
         this.$PubSub.publish('switchType',id);
     },
 
     // 用于监视用户点击播放按钮,并实现歌曲的播放功能
-    handlePlay(){
+    async handlePlay(){
 
         // 1.获取到全局唯一的背景音频管理器对象
         // const backgroundAudioManager = wx.getBackgroundAudioManager();
+
+        if(!this.data.musicUrl){
+            await this.getMusicUrl();
+        }
 
         if(this.data.isPlay){
             // 能进入这里,说明当前背景音频正在播放
@@ -90,7 +73,7 @@ Page({
             appInstance.globalData.playState = false;
             
         }else{
-    
+
             // 2.通过背景音频管理器实例对象的API接口,实现自动播放音频
             this.backgroundAudioManager.src = this.data.musicUrl;
             this.backgroundAudioManager.title = this.data.songObj.name;
@@ -125,7 +108,9 @@ Page({
 
         this.getMusicDetail();
 
-        this.getMusicUrl();
+        // 由于用户很可能出现进如song页面,但是不听歌,又退出,反复进入的情况
+        // 所以此处的请求我们放到开始播放歌曲再发送
+        // this.getMusicUrl();
 
 
         // 以下代码用于测试app实例对象的使用
@@ -135,11 +120,39 @@ Page({
 
         // 如果正在播放的背景音频与当前页面显示的是同一首歌,那么页面的C3效果自动进入播放状态
         const {audioId,playState} = appInstance.globalData;
-        if(playState&&songId === audioId){
+        // console.log(1,songId,audioId)
+        if(playState && songId*1 === audioId){
             this.setData({
                 isPlay:true
             })
         }
+
+        
+        // 将消息订阅放在onLoad中,那么每次挂载页面才会订阅一次
+        this.token = this.$PubSub.subscribe('sendId',async (msg,songId)=>{
+            // console.log('subscibe sendId',msg,songId)
+
+            this.setData({
+                songId
+            })
+
+            const promise1 = this.getMusicDetail();
+
+            const promise2 = this.getMusicUrl();
+
+            await Promise.all([promise1,promise2]);
+
+            this.backgroundAudioManager.src = this.data.musicUrl;
+            this.backgroundAudioManager.title = this.data.songObj.name;
+    
+            // 将当前歌曲的播放状态和歌曲id都记录在app实例对象上
+            appInstance.globalData.audioId = this.data.songId;
+            appInstance.globalData.playState = true;
+
+            this.setData({
+                isPlay:true
+            })
+        })
 
         // console.log('PubSub',PubSub)
     },
@@ -169,7 +182,7 @@ Page({
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-
+        this.$PubSub.unsubscribe(this.token);
     },
 
     /**
