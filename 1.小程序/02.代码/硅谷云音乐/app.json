@@ -13,6 +13,7 @@
         "navigationBarTextStyle": "white",
         "enablePullDownRefresh": false
     },
+    "requiredBackgroundModes": ["audio"],
     "tabBar": {
         "color": "#333",
         "selectedColor": "#d43c33",
