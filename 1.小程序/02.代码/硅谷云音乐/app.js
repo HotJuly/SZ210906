@@ -1,4 +1,5 @@
 // app.js
+import PubSub from 'pubsub-js';
 import myAxios from './utils/myAxios';
 import hasPermission from './utils/hasPermission';
 import utilConfig from './utils/config';
@@ -15,6 +16,8 @@ App({
       // 在每个页面的配置对象上添加一个$myAxios属性,属性值就是myAxios函数
       config.$hasPermission = hasPermission;
 
+      // 实现类似于全局事件总线的效果
+      config.$PubSub = PubSub;
 
 
       // 将每个页面的配置对象中的onShow方法,缓存在onShow变量中

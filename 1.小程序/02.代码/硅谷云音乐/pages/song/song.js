@@ -1,5 +1,5 @@
 // pages/song/song.js
-import PubSub from 'pubsub-js';
+// import PubSub from 'pubsub-js';
 const appInstance = getApp();
 Page({
 
@@ -21,16 +21,70 @@ Page({
         songId:null
     },
 
+    // 用于请求歌曲的音频链接
+    async getMusicUrl(){
+        const {data} = await this.$myAxios('/song/url',{id:this.data.songId});
+        // console.log('result',result)
+        this.setData({
+            musicUrl:data[0].url
+        })
+    },
+
+    // 用于请求歌曲的详细信息
+    async getMusicDetail(){
+        const {songs} = await this.$myAxios('/song/detail',{ids:this.data.songId});
+        // console.log('result',result)
+        this.setData({
+            songObj:songs[0]
+        })
+
+        // 动态设置当前页面的导航栏标题
+        wx.setNavigationBarTitle({
+            title:this.data.songObj.name
+        })
+    },
+
+    // 用于监视用户点击上一首/下一首按钮操作,自动切换对应歌曲
+    switchType(event){
+        // console.log('switchType')
+
+        const id = event.currentTarget.id;
+
+        this.$PubSub.subscribe('sendId',async (msg,songId)=>{
+            // console.log('subscibe sendId',msg,songId)
+
+            this.setData({
+                songId
+            })
+
+            const promise1 = this.getMusicDetail();
+
+            const promise2 = this.getMusicUrl();
+
+            await Promise.all([promise1,promise2]);
+
+            this.backgroundAudioManager.src = this.data.musicUrl;
+            this.backgroundAudioManager.title = this.data.songObj.name;
+
+            this.setData({
+                isPlay:true
+            })
+        })
+
+        // 发布消息,触发切换歌曲的流程1
+        this.$PubSub.publish('switchType',id);
+    },
+
     // 用于监视用户点击播放按钮,并实现歌曲的播放功能
     handlePlay(){
 
         // 1.获取到全局唯一的背景音频管理器对象
-        const backgroundAudioManager = wx.getBackgroundAudioManager();
+        // const backgroundAudioManager = wx.getBackgroundAudioManager();
 
         if(this.data.isPlay){
             // 能进入这里,说明当前背景音频正在播放
 
-            backgroundAudioManager.pause();
+            this.backgroundAudioManager.pause();
     
             // 将当前歌曲的播放状态都记录在app实例对象上
             appInstance.globalData.playState = false;
@@ -38,8 +92,8 @@ Page({
         }else{
     
             // 2.通过背景音频管理器实例对象的API接口,实现自动播放音频
-            backgroundAudioManager.src = this.data.musicUrl;
-            backgroundAudioManager.title = this.data.songObj.name;
+            this.backgroundAudioManager.src = this.data.musicUrl;
+            this.backgroundAudioManager.title = this.data.songObj.name;
     
             // 将当前歌曲的播放状态和歌曲id都记录在app实例对象上
             appInstance.globalData.audioId = this.data.songId;
@@ -63,24 +117,15 @@ Page({
         // 通过query实现路由传参,将歌曲id传递给当前song页面
         const songId = options.songId;
 
-        const {songs} = await this.$myAxios('/song/detail',{ids:songId});
-        // console.log('result',result)
+        this.backgroundAudioManager = wx.getBackgroundAudioManager();
+
         this.setData({
-            songObj:songs[0],
             songId
         })
 
-        // 动态设置当前页面的导航栏标题
-        wx.setNavigationBarTitle({
-            title:this.data.songObj.name
-        })
+        this.getMusicDetail();
 
-        
-        const {data} = await this.$myAxios('/song/url',{id:songId});
-        // console.log('result',result)
-        this.setData({
-            musicUrl:data[0].url
-        })
+        this.getMusicUrl();
 
 
         // 以下代码用于测试app实例对象的使用
@@ -96,7 +141,7 @@ Page({
             })
         }
 
-        console.log('PubSub',PubSub)
+        // console.log('PubSub',PubSub)
     },
 
     /**
