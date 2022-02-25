@@ -49,5 +49,10 @@ App({
       // 使用原先的Page方法+改动之后的config对象来生成页面的实例对象,并返回
       return PageFn(config)
     }
+  },
+  globalData:{
+    // msg:"我是app的初始化数据"
+    audioId:null,
+    playState:false
   }
 })

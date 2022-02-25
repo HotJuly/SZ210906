@@ -1,4 +1,5 @@
 // pages/song/song.js
+const appInstance = getApp();
 Page({
 
     /**
@@ -13,7 +14,10 @@ Page({
         songObj:{},
 
         // 用于存储当前歌曲的音频链接
-        musicUrl:null
+        musicUrl:null,
+
+        // 用于存储当前歌曲的id
+        songId:null
     },
 
     // 用于监视用户点击播放按钮,并实现歌曲的播放功能
@@ -26,6 +30,9 @@ Page({
             // 能进入这里,说明当前背景音频正在播放
 
             backgroundAudioManager.pause();
+    
+            // 将当前歌曲的播放状态都记录在app实例对象上
+            appInstance.globalData.playState = false;
             
         }else{
     
@@ -33,6 +40,9 @@ Page({
             backgroundAudioManager.src = this.data.musicUrl;
             backgroundAudioManager.title = this.data.songObj.name;
     
+            // 将当前歌曲的播放状态和歌曲id都记录在app实例对象上
+            appInstance.globalData.audioId = this.data.songId;
+            appInstance.globalData.playState = true;
         }
 
         // 更新isPlay状态,控制页面C3效果切换
@@ -55,7 +65,8 @@ Page({
         const {songs} = await this.$myAxios('/song/detail',{ids:songId});
         // console.log('result',result)
         this.setData({
-            songObj:songs[0]
+            songObj:songs[0],
+            songId
         })
 
         // 动态设置当前页面的导航栏标题
@@ -69,6 +80,20 @@ Page({
         this.setData({
             musicUrl:data[0].url
         })
+
+
+        // 以下代码用于测试app实例对象的使用
+        // console.log('appInstance1',appInstance.globalData.msg)
+        // appInstance.globalData.msg = "我是修改之后的数据"
+        // console.log('appInstance2',appInstance.globalData.msg)
+
+        // 如果正在播放的背景音频与当前页面显示的是同一首歌,那么页面的C3效果自动进入播放状态
+        const {audioId,playState} = appInstance.globalData;
+        if(playState&&songId === audioId){
+            this.setData({
+                isPlay:true
+            })
+        }
     },
 
     /**
