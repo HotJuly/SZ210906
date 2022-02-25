@@ -21,6 +21,7 @@ Page({
         const song = event.currentTarget.dataset.song;
         // console.log('song',song)
 
+        // 小程序路由传参只支持query传参
         // 小程序的url具有长度限制,当前的song对象属性过多,无法全部传递过去
         wx.navigateTo({
             url:"/pages/song/song?songId="+song.id

@@ -1,4 +1,5 @@
 // pages/song/song.js
+import PubSub from 'pubsub-js';
 const appInstance = getApp();
 Page({
 
@@ -94,6 +95,8 @@ Page({
                 isPlay:true
             })
         }
+
+        console.log('PubSub',PubSub)
     },
 
     /**
