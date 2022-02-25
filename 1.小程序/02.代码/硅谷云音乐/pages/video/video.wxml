@@ -23,6 +23,7 @@
   bindscrolltolower="handleReachBottom"
   >
     <view class="videoItem" wx:for="{{videoList}}" wx:key="vid">
+    <!-- 此处也可以直接给video组件添加autoplay属性,来实现自动播放 -->
       <video wx:if="{{currentId===item.vid}}" id="{{item.vid}}" src="{{item.urlInfo.url}}" class="common" bindplay="handlePlay"></video>
 
       <image wx:else id="{{item.vid}}" class="common" src="{{item.coverUrl}}"

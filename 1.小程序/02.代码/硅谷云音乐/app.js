@@ -26,7 +26,12 @@ App({
         // 只有是config中checkPermission数组中有记录的页面,才进行权限检查,如果数组中没有,就不做检查
         // 通过页面实例this.route属性,可以知道当前执行onShow生命周期的是哪一个页面
         // console.log(utilConfig.checkPermission)
-        if(utilConfig.checkPermission.includes(this.route)){
+
+        // 旧版本:checkPermission数据类型为数组,需要遍历查找
+        // if(utilConfig.checkPermission.includes(this.route)){
+
+        // 新版本:checkPermission2数据类型为对象,可以直接使用当前页面路径作为属性名读取结果
+        if(utilConfig.checkPermission2[this.route]){
 
           // 在执行onShow生命周期的时候,第一件事情就是先检测有没有登录
           // 如果没有登录就不执行后续代码,如果有登录才执行后续代码
