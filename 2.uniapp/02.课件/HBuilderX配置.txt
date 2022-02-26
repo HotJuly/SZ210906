@@ -1,0 +1,24 @@
+1.将项目编译成网页运行
+	1.配置方法:
+		HbuilderX->工具->设置->运行配置->浏览器运行配置->Chrome浏览器安装路径
+		参考地址:C:/Program Files (x86)/Google/Chrome/Application/chrome.exe
+		找路径的推荐方法:右击Chrome图标->属性->复制"目标位置"->将\改为/
+
+2.将项目编译成小程序运行
+	1.配置方法:
+		1.HBuilderX
+			工具->设置->运行配置->小程序运行配置->微信开发者工具路径
+
+		2.微信开发者工具
+			设置->安全设置->打开服务端口
+
+3.统一配置
+	微信开发者工具
+		设置->编译器设置->取消勾选"修改文件时自动保存"
+		注意:如果该设置不关闭,很可能导致HBuilderX代码保存了,但是小程序这边不会自动刷新展示最新效果
+
+
+问题:小程序控制台报错->TypeError: Cannot read property 'forceUpdate' of undefined
+解决方法:
+	在当前uniapp项目中->找到manifest.json文件->微信小程序配置->填写AppID
+	注意:每次创建一个全新的uniapp项目都需要填写
