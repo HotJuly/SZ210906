@@ -28,7 +28,7 @@ Page({
         // 小程序路由传参只支持query传参
         // 小程序的url具有长度限制,当前的song对象属性过多,无法全部传递过去
         wx.navigateTo({
-            url:"/pages/song/song?songId="+song.id
+            url:"/songs/pages/song/song?songId="+song.id
         })
 
         // 需要记录当前跳转的是哪一首歌,方便后续切歌功能查找对应歌曲id
