@@ -1,5 +1,6 @@
 // app.js
 import PubSub from 'pubsub-js';
+import moment from 'moment';
 import myAxios from './utils/myAxios';
 import hasPermission from './utils/hasPermission';
 import utilConfig from './utils/config';
@@ -18,6 +19,9 @@ App({
 
       // 实现类似于全局事件总线的效果
       config.$PubSub = PubSub;
+
+      // 将功能函数moment存放于每个页面实例对象身上
+      config.$moment = moment;
 
 
       // 将每个页面的配置对象中的onShow方法,缓存在onShow变量中
