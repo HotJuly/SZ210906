@@ -39,7 +39,7 @@
 		// created(){
 		// 	console.log('created')
 		// },
-		mounted(){
+		async mounted(){
 			// uniapp既可以使用小程序的生命周期,也可以使用Vue的生命周期,一般情况下都可以使用
 			// console.log('mounted')
 			
@@ -48,15 +48,18 @@
 			// uniapp兼容小程序的绝大多数API,也就是说可以直接使用wx的方法
 			// uniapp和小程序的官方文档几乎相同,基本上都可以参考小程序的API文件开发uniapp
 			// 小总结:uniapp开发中,页面结构标签和API都是用uniapp,剩余内容都是用Vue的
-			uni.request({
-				// url:'http://localhost:5000/getIndexData',
-				url:'/api/getIndexData',
-				success:(res)=>{
-					// console.log('success',res)
-					// 可以直接使用Vue语法进行数据更新,不需要使用小程序的
-					this.indexData = res.data
-				}
-			})
+			// uni.request({
+			// 	// url:'http://localhost:5000/getIndexData',
+			// 	url:'/api/getIndexData',
+			// 	success:(res)=>{
+			// 		// console.log('success',res)
+			// 		// 可以直接使用Vue语法进行数据更新,不需要使用小程序的
+			// 		this.indexData = res.data
+			// 	}
+			// })
+			const result = await this.$myAxios('/getIndexData');
+			this.indexData = result;
+			// console.log('result',result)
 		},
 		methods: {}
 	}

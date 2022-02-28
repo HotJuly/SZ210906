@@ -136,7 +136,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};} //
 //
 //
 //
@@ -177,27 +177,29 @@ var _default =
   // created(){
   // 	console.log('created')
   // },
-  mounted: function mounted() {var _this = this;
-    // uniapp既可以使用小程序的生命周期,也可以使用Vue的生命周期,一般情况下都可以使用
-    // console.log('mounted')
+  mounted: function mounted() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var result;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
 
-    // Vue中发送请求使用的是axios
-    // 小程序中发送请求使用的是wx.request
-    // uniapp兼容小程序的绝大多数API,也就是说可以直接使用wx的方法
-    // uniapp和小程序的官方文档几乎相同,基本上都可以参考小程序的API文件开发uniapp
-    // 小总结:uniapp开发中,页面结构标签和API都是用uniapp,剩余内容都是用Vue的
-    uni.request({
-      // url:'http://localhost:5000/getIndexData',
-      url: '/api/getIndexData',
-      success: function success(res) {
-        // console.log('success',res)
-        // 可以直接使用Vue语法进行数据更新,不需要使用小程序的
-        _this.indexData = res.data;
-      } });
 
-  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                _this.$myAxios('/getIndexData'));case 2:result = _context.sent;
+              _this.indexData = result;
+              // console.log('result',result)
+            case 4:case "end":return _context.stop();}}}, _callee);}))();},
   methods: {} };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 /* 18 */
