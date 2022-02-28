@@ -45,13 +45,19 @@ router.get('/test',(ctx,next)=>{
 	ctx.body='/test success';
 })
 
+// 用于请求首页推荐区域数据
 const indexData = require('./datas/index.json');
 router.get('/getIndexData',(ctx,next)=>{
 	console.log('/getIndexData success')
 	ctx.body=indexData;
 })
 
-
+// 用于请求分类页面数据
+const categoryDatas = require('./datas/categoryDatas.json');
+router.get('/getCategoryDatas',(ctx,next)=>{
+	console.log('/getCategoryDatas success')
+	ctx.body=categoryDatas;
+})
 
 
 // 2.将服务器应用实例挂载到电脑的某个端口上,并监听该端口
