@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+
+        }
+        :root{
+            --global-color:blue
+        }
+        .box{
+            width:200px;
+            height:200px;
+            border:1px solid black;
+        }
+        .box1{
+            /* background-color: blue; */
+            background-color: var(--global-color);
+        }
+        .box2{
+            /* color: blue; */
+            color: var(--global-color);
+        }
+        .box3{
+            /* border-color: blue; */
+            border-color: var(--global-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="box box1">
+        box1
+    </div>
+    <div class="box box2">
+        box2
+    </div>
+    <div class="box box3">
+        box3
+    </div>
+    <button id="btn">给老子变绿</button>
+    <script>
+        var btn = document.querySelector('#btn');
+        btn.onclick=function(){
+            document.documentElement.style.setProperty('--global-color','green')
+        }
+    </script>
+</body>
+</html>

@@ -58,4 +58,7 @@
   border-bottom: 4rpx solid #f00;
   box-sizing: border-box;
 }
+.indexContainer .contentScroll {
+  height: calc(100vh - 80rpx - 80rpx - 0px - 0px);
+}
 

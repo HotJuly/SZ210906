@@ -34,8 +34,10 @@
 			>{{item.text}}</view>
 		</scroll-view>
 		
-		<Recommend v-if="navIndex===-1"></Recommend>
-		<CateList v-else></CateList>
+		<scroll-view class="contentScroll" scroll-y="true" >
+			<Recommend v-if="navIndex===-1"></Recommend>
+			<CateList v-else></CateList>
+		</scroll-view>
 	</view>
 </template>
 
@@ -218,4 +220,18 @@
 				&.active
 					border-bottom 4upx solid red
 					box-sizing border-box
+		.contentScroll
+			//小程序高度 = 屏幕百分百高度 - header高度 - nav高度
+			// height calc(100vh - 80upx - 80upx)
+			//web高度	= 屏幕百分百高度 - header高度 - nav高度 - 顶部导航栏高度 - 底部导航栏高度
+			// height calc(100vh - 80upx - 80upx - 88upx - 100upx)
+			
+			/* #ifdef H5 */
+			// height calc(100vh - 80upx - 80upx - 88upx - 100upx)
+			/* #endif */
+			/* #ifdef MP */
+			// height calc(100vh - 80upx - 80upx)
+			/* #endif */
+			
+			height calc(100vh - 80upx - 80upx - var(--window-top) - var(--window-bottom))
 </style>
