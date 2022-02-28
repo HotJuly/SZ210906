@@ -136,7 +136,16 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -158,14 +167,36 @@ var _default =
 {
   data: function data() {
     return {
-      title: 'Hello1' };
-
+      title: 'Hello1',
+      indexData: {} };
 
   },
+  // onLoad() {
+  // 	console.log('onLoad')
+  // },
+  // created(){
+  // 	console.log('created')
+  // },
+  mounted: function mounted() {var _this = this;
+    // uniapp既可以使用小程序的生命周期,也可以使用Vue的生命周期,一般情况下都可以使用
+    // console.log('mounted')
 
-  onLoad: function onLoad() {},
+    // Vue中发送请求使用的是axios
+    // 小程序中发送请求使用的是wx.request
+    // uniapp兼容小程序的绝大多数API,也就是说可以直接使用wx的方法
+    // uniapp和小程序的官方文档几乎相同,基本上都可以参考小程序的API文件开发uniapp
+    // 
+    uni.request({
+      url: 'http://localhost:5000/getIndexData',
+      success: function success(res) {
+        // console.log('success',res)
+        // 可以直接使用Vue语法进行数据更新,不需要使用小程序的
+        _this.indexData = res.data;
+      } });
 
+  },
   methods: {} };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 /* 18 */
