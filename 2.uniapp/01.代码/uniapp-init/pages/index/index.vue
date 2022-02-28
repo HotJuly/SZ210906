@@ -14,7 +14,7 @@
 			<button class="username" type="default">七月</button>
 		</view>
 		
-		<scroll-view scroll-x="true" class="navScroll" enable-flex>
+		<scroll-view v-if="indexData.kingKongModule" scroll-x="true" class="navScroll" enable-flex>
 			<view class="navItem active">推荐</view>
 			<view 
 			class="navItem" 
@@ -47,9 +47,10 @@
 			// 小程序中发送请求使用的是wx.request
 			// uniapp兼容小程序的绝大多数API,也就是说可以直接使用wx的方法
 			// uniapp和小程序的官方文档几乎相同,基本上都可以参考小程序的API文件开发uniapp
-			// 
+			// 小总结:uniapp开发中,页面结构标签和API都是用uniapp,剩余内容都是用Vue的
 			uni.request({
-				url:'http://localhost:5000/getIndexData',
+				// url:'http://localhost:5000/getIndexData',
+				url:'/api/getIndexData',
 				success:(res)=>{
 					// console.log('success',res)
 					// 可以直接使用Vue语法进行数据更新,不需要使用小程序的
@@ -101,9 +102,11 @@
 				flex-shrink  0
 				color red
 		.navScroll
-			display flex
+			// display flex
 			height 80upx
+			white-space nowrap
 			.navItem
+				display inline-block
 				width 140upx
 				height 80upx
 				flex-shrink 0

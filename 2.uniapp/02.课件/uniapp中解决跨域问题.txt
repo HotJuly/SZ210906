@@ -1,0 +1,11 @@
+uniapp中解决跨域问题方案
+	一共有三种
+	1.使用HBuilderX内置浏览器运行 
+		最不推荐的方案
+	2.使用vue.config.js文件配置代理规则解决
+		uniapp是支持vue-cli脚手架的vue.config.js文件的
+		所以如果需要配置vue.config.js文件中的代码,一定要去看vue-cli官网
+	3.配置manifest.json文件的开发服务器内容
+		该配置需要参考的是webpack官网的配置规范
+
+	manifest.json的配置优先级低于vue.config.js

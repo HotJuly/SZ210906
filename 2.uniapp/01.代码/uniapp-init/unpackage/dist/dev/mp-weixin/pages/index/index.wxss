@@ -42,10 +42,11 @@
   color: #f00;
 }
 .indexContainer .navScroll {
-  display: flex;
   height: 80rpx;
+  white-space: nowrap;
 }
 .indexContainer .navScroll .navItem {
+  display: inline-block;
   width: 140rpx;
   height: 80rpx;
   flex-shrink: 0;
