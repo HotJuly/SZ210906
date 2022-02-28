@@ -15,23 +15,45 @@
 		</view>
 		
 		<scroll-view v-if="indexData.kingKongModule" scroll-x="true" class="navScroll" enable-flex>
-			<view class="navItem active">推荐</view>
+			<!-- <view class="navItem" :class="navIndex===-1?'active':''">推荐</view> -->
+			<view 
+			class="navItem" 
+			:class="{
+				active:navIndex===-1
+			}"
+			@tap="changeNavIndex(-1)"
+			>推荐</view>
 			<view 
 			class="navItem" 
 			v-for="(item,index) in indexData.kingKongModule.kingKongList"
-			:key="item.L1Id"
+			:key="item.L1Id" 
+			:class="{
+				active:navIndex===index
+			}"
+			@tap="changeNavIndex(index)"
 			>{{item.text}}</view>
 		</scroll-view>
+		
+		<Recommend v-if="navIndex===-1"></Recommend>
+		<CateList v-else></CateList>
 	</view>
 </template>
 
 <script>
+	import Recommend from '../../components/Recommend/Recommend.vue';
+	import CateList from '../../components/CateList/CateList.vue';
+	import {mapState,mapActions} from 'vuex';
 	export default {
 		data(){
 			return {
 				title: 'Hello1',
-				indexData:{}
+				navIndex: -1
+				// indexData:{}
 			}
+		},
+		components:{
+			Recommend,
+			CateList
 		},
 		// onLoad() {
 		// 	console.log('onLoad')
@@ -57,11 +79,88 @@
 			// 		this.indexData = res.data
 			// 	}
 			// })
-			const result = await this.$myAxios('/getIndexData');
-			this.indexData = result;
+			// const result = await this.$myAxios('/getIndexData');
+			// this.indexData = result;
 			// console.log('result',result)
+			
+			// 触发action的方式
+			// this.$store.dispatch('getIndexData');
+			// this.getIndexData();
+			// this["home/getIndexData"]();
+			this.getIndexData1();
+			
+			
+			
+			// 获取Vuex数据
+			// console.log('1',this.$store.state.home.initData)
+			// console.log('2',this.initData2)
+			// console.log('3',this.initData3)
+			// console.log('4',this.initData)
+			// console.log('5',this.initData5)
+			
+			
 		},
-		methods: {}
+		methods: {
+			// ...mapActions(["getIndexData"])
+			// ...mapActions(["home/getIndexData"])
+			// ...mapActions("home",["getIndexData"])
+			...mapActions("home",{
+				getIndexData1:"getIndexData"
+			}),
+			changeNavIndex(index){
+				this.navIndex = index;
+			}
+		},
+		computed:{
+			initData2(){
+				/*
+					面试题:computed和watch之间的区别
+					解答:
+						相同点:
+							他们都可以监视一个响应式属性的变化,当响应式属性发生变化的时候,会执行对应的回调函数
+							
+						不同点:
+							1.使用场景
+								computed
+									如果你现在想要一个数据结果,可惜你手头没有,但是它可以根据已有的数据进行计算得到,
+									那么就使用计算属性computed
+									
+									例如:购物车列表计算总价
+									
+								watch
+									如果当一个属性发生变化的时候,需要做一些事情,那么就使用watch
+									
+									例如:search页面监视keyword关键字的变化,来发送请求
+									
+								个人认为:computed更注重于结果,而watch更注重于过程
+								
+							2.返回值
+								computed的返回值可以在template中进行使用,然而watch的返回值没有意义
+								
+							3.computed具有缓存功能,如果依赖的数据没有变化,computed不会重新计算
+				*/
+			   
+			   return this.$store.state.home.initData;
+			},
+			...mapState({
+				initData3:(state)=>{
+					return state.home.initData
+				}
+			}),
+			...mapState("home",["initData"]),
+			...mapState("home",{
+				initData5:"initData"
+			}),
+			...mapState("home",['indexData'])
+		},
+		// watch:{
+		// 	a(){
+				
+		// 	},
+		// 	'$route.query.keyword'(){
+		// 		// 发送请求获取最新的展示列表
+		// 	}
+		// }
 	}
 </script>
 
