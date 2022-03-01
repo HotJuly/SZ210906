@@ -66,6 +66,21 @@ router.get('/getIndexCateList',(ctx,next)=>{
 	ctx.body=indexCateList;
 })
 
+// 用于请求详情页面数据
+const goods = require('./datas/goods.json');
+router.get('/getGoodDetail',(ctx,next)=>{
+	// ctx.query可以接收到用户从前端发送过来的query对象
+	// 注意:url只能传递字符串类型的数据
+	// console.log('/getGoodDetail success',ctx.query)
+	const goodId = ctx.query.goodId;
+	const result = goods.find(good=>{
+		// console.log('1',good.id,goodId)
+		return good.id===goodId*1;
+	})
+	// console.log('result',result)
+	ctx.body=result;
+})
+
 
 // 2.将服务器应用实例挂载到电脑的某个端口上,并监听该端口
 app.listen('5000',(error)=>{
