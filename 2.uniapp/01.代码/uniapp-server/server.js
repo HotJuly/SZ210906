@@ -59,6 +59,13 @@ router.get('/getCategoryDatas',(ctx,next)=>{
 	ctx.body=categoryDatas;
 })
 
+// 用于请求首页分类列表数据
+const indexCateList = require('./datas/indexCateList.json');
+router.get('/getIndexCateList',(ctx,next)=>{
+	console.log('/getIndexCateList success')
+	ctx.body=indexCateList;
+})
+
 
 // 2.将服务器应用实例挂载到电脑的某个端口上,并监听该端口
 app.listen('5000',(error)=>{

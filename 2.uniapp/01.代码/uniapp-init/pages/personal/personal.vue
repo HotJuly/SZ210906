@@ -1,10 +1,10 @@
 <template>
 	<div>
-		<div class="header">
-			<image class="userImg" src="../../static/images/personal/personal.png" mode=""></image>
+		<div class="header" @tap="toLogin">
+			<image class="userImg" :src="userInfo.avatarUrl?userInfo.avatarUrl:'../../static/images/personal/personal.png'" mode=""></image>
 			<div class='userInfo'>
-				<p>未登录</p>
-				<p>点击登录账号</p>
+				<p>{{userInfo.nickName?userInfo.nickName:'未登录'}}</p>
+				<p>{{userInfo.nickName?'微信用户':'点击登录账号'}}</p>
 			</div>
 		</div>
 		
@@ -48,6 +48,7 @@
 	module.exports = {
 		data(){
 			return {
+				userInfo:{},
 				personalList: [
 					{
 						name: '我的订单',
@@ -95,8 +96,18 @@
 		mounted(){
 			
 		},
+		onLoad(){
+			const userInfo = uni.getStorageSync('userInfo');
+			if(userInfo){
+				this.userInfo = userInfo
+			}
+		},
 		methods: {
-			
+			toLogin(){
+				uni.navigateTo({
+					url:"/pages/login/login"
+				})
+			}
 		}
 		
 	}
