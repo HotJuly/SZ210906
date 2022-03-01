@@ -2102,6 +2102,7 @@ uni$1;exports.default = _default;
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var state = {
   cartList: [
   {
+    "selected": true,
     "count": 3,
     "promId": 0,
     "showPoints": false,
@@ -2176,6 +2177,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     "itemSizeTableFlag": false },
 
   {
+    "selected": false,
     "count": 9,
     "promId": 0,
     "showPoints": false,
@@ -2291,13 +2293,57 @@ var mutations = {
       直接打印某个属性所属的对象,如果该属性是直接显示数据,那么该属性就是非响应式属性
       如果显示的是...,说明当前数据具有getter方法,那么该属性就是响应式属性
       */
+  },
+  CHANGESHOPITEMCOUNTMUTATION: function CHANGESHOPITEMCOUNTMUTATION(state, _ref) {var type = _ref.type,index = _ref.index;
+    // console.log('CHANGESHOPITEMCOUNTMUTATION',data);
+    /*
+    	需求:
+    		当用户点击加号时候,将购物车中对应商品数量+1
+    		当用户点击减号时候,将购物车中对应商品数量-1
+    				如果商品数量已经是1,就不需要-1了,直接移除该商品
+    
+    */
+    var cartList = state.cartList;
+    var shopItem = cartList[index];
+    if (type) {
+      shopItem.count += 1;
+    } else {
+      if (shopItem.count === 1) {
+        cartList.splice(index, 1);
+      } else {
+        shopItem.count -= 1;
+      }
+    }
+  },
+  CHANGESELECTEDMUTATION: function CHANGESELECTEDMUTATION(state, index) {
+    var shopItem = state.cartList[index];
+    shopItem.selected = !shopItem.selected;
+  },
+  CHANGEALLSELECTEDMUTATION: function CHANGEALLSELECTEDMUTATION(state, selected) {
+    state.cartList.forEach(function (shopItem) {
+      shopItem.selected = selected;
+    });
   } };
 
 
 var actions = {};
 
-var getters = {};var _default =
-
+var getters = {
+  isSelectedAll: function isSelectedAll(state) {
+    /*
+                                                	需求:
+                                                		1.如果当前购物车中所有的商品都是选中状态,那么全选按钮也要是选中状态
+                                                		2.如果当前购物车中有一个商品是未选中状态,那么全选按钮也要是未选中状态
+                                                		3.如果购物车中没有商品,那么全选按钮要是未选中状态
+                                                		返回值类型:布尔值
+                                                
+                                                */
+    if (state.cartList.length === 0) return false;
+    var result = state.cartList.every(function (shopItem) {
+      return shopItem.selected;
+    });
+    return result;
+  } };var _default =
 
 
 
@@ -2494,6 +2540,9 @@ function _default(url) {var data = arguments.length > 1 && arguments[1] !== unde
       url: baseUrl + url,
       data: data,
       method: method,
+      header: {
+        token: uni.getStorageSync('openId') },
+
       success: function success(res) {
         // console.log('success',res)
         resolve(res.data);

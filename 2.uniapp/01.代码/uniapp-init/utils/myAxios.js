@@ -45,6 +45,9 @@ export default function(url,data={},method="GET"){
 			url:baseUrl + url,
 			data,
 			method,
+			header:{
+				token:uni.getStorageSync('openId')
+			},
 			success:(res)=>{
 				// console.log('success',res)
 				resolve(res.data)
