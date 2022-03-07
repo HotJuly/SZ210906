@@ -36,7 +36,7 @@ export default {
 
 
 
-#### 6) 大数组优化2: 虚拟列表
+#### 6) 大数组优化2: 虚拟列表(虚拟长列表)
 
 - 当组件处于非常长的列表时，数据过多导致DOM元素同样多，导致卡顿。
 
@@ -76,11 +76,11 @@ beforeDestory() {
   - core-js: 在@babel/preset-env基础上，增加了useBuiltIns: 'usage'来实现按需打包
 - CSS  
   - postcss-loader  
-  
+
   - 内部使用autoprefixer插件, 给C3样式自动添加厂商前缀
-  
+
     ![preview](https://segmentfault.com/img/remote/1460000014782566/view)
-  
+
   - 在package.json中指定browserslist来指示postcss-loader兼容性做到什么程度
 
 #### 2) 拆分打包与压缩
