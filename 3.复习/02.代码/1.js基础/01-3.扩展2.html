@@ -13,6 +13,9 @@
                 1.首先检查对象自身是否具有该属性,如果有就是用
                 2.如果对象身上没有该属性,就会顺着隐式原型链向上查找,如果找到就使用,如果没找到就返回undefined
                     p1.c -> p1.__proto__.c -> p1.__proto__.__proto__.c
+
+            注意:在面试原型链打印题的时候,一定要注意是先创建了实例对象,还是先修改了原型对象
+                实例对象的隐式原型属性虽然是复制构造函数的显式原型属性的,但是后续显式原型属性发生变化,不会影响到已经生成的隐式原型属性
         */
         function Person(name,age){
             this.name = name;
@@ -21,8 +24,15 @@
         }
 
         // Person.prototype.c = 1;
+        // Person.prototype={
+        //     c:2
+        // };
 
         var p1 = new Person("xiaoming",23);
+
+        Person.prototype={
+            c:2
+        };
 
         console.log(p1.c)
     </script>

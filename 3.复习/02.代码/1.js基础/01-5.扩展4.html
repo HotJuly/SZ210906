@@ -19,6 +19,8 @@
         var data = new Date();
 
         // 方案一:使用instanceof区分当前数据是不是某类数据,但是该方法只能知道是或不是,无法确定是什么类型
+        // instanceof 会判断A.__proto__ 是否等于B.prototype,如果不相等继续顺着隐式原型链递归查找
+        //  A.__proto__ === B.prototype => A.__proto__.__proto__ === B.prototype
         // console.log(data instanceof Array)
 
         // 方案二:使用typeof来区分,根据返回值可以知道数据是什么类型,

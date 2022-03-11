@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+            1.万物皆对象
+            2.所有的对象都是Object的实例对象
+            3.所有的函数都是Function的实例对象,包括他自己(???)
+                在js中,能够创建函数的只有Function一个
+            4.在js中,函数是一等公民,因为它既是函数,又是对象
+                只有对象能具有属性,那么Function.prototype属性
+        
+        */
+
+        // function关键字,其实是一个语法糖,它相当于new Function
+        function Foo() {}
+        const f1 = new Foo()
+
+        const o1 = new Object()
+
+        // Foo instanceof Object
+        // Foo instanceof Function
+        // Object instanceof Object
+        // Function instanceof Function
+        // Function instanceof Object
+
+        // Object instanceof Foo
+        // f1 instanceof Function
+        // f1 instanceof Object
+
+        /*
+            伪数组(类数组)
+                例如:arguments,NodeList,HtmlCollection
+                1.他是用下标存储数据
+                2.它具有length属性
+                3.他不能使用数组的方法(说白了,就是原型链上的没有出现Array的原型对象)
+
+            js的底层其实是C语言,在js中,使用C语言写的内容
+                1.Object函数
+                2.Function函数
+                3.Function.prototype
+
+            在js引擎中,js作者添加的4条线
+                1.Object.__proto__ === Function.prototype
+                    由于Object是一个构造函数,所以他必须要能使用函数的方法,以及能看到函数的原型对象
+                    如果没有这条线,Object就不算是一个函数
+
+                2.Function.__proto__ === Function.prototype
+                    与1相同,Function想要证明自己是一个函数,就必须经过自己的原型对象
+
+                3.Function.prototype.__proto__ === Object.prototype
+                    如果没有这条线,那么所有函数都无法使用对象的方法,
+                    也就是说函数不再是对象,会失去js只有一个原型链顶点的特点
+
+                4.Object.prototype.__proto__ === null
+                    如果没有这条线,那么所有的对象查找原型链属性的时候,都会进入死循环
+
+        
+        */
+    </script>
+</body>
+
+</html>
