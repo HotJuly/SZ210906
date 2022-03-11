@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+            1.闭包的产生条件
+                -必须具有函数嵌套关系
+                -内部函数必须使用到外部函数的变量
+            
+                闭包分为两种:
+                    1.有效闭包
+                        外部函数将内部函数返回出去,暴露给外层作用域使用
+                    2.无效闭包
+                        外部函数没有返回内部函数
+
+            2.闭包的优点
+                延长了局部变量的生命周期(本来要销毁的变量,现在没死)
+                可以实现js模块化
+
+            3.闭包的缺点
+                会出现的现象:内存泄漏
+                导致的严重结果:内存溢出
+
+            4.如何解决闭包的副作用
+                尽量少使用闭包
+                及时释放无用闭包
+                    将内部函数的引用全部释放掉,就可以让垃圾回收机制回收内部函数,从而导致内部变量被回收
+
+                有用的数据缓存多少都是好事,但是没有用的数据还缓存就是问题
+                闭包不会销毁的原因:
+                    1.由于内部变量在将来很可能会被内部函数使用到,所以内部变量不能死
+                    2.而内部函数被外部的变量存储着,所以内部函数不会死
+            
+            5.闭包是什么?
+                闭包是一个对象,它内部缓存这当前函数需要使用到的变量
+                闭包其实就是意外存活的变量对象
+
+            6.闭包的使用场景
+                函数防抖
+                函数节流
+                自己提前想好使用场景
+
+
+
+            执行上下文
+                执行上下文分为两部分
+                    -执行该函数所需要使用的内存空间
+                    -变量对象
+                        变量对象会将当前函数作用域中所有的变量作为属性名,变量值作为属性值存放
+                
+                执行上下文创建时间
+                    在你调用函数创建
+
+                执行上下文销毁时间
+                    当函数执行结束会被销毁
+                
+        */
+
+        // function a(){
+        //     var num = 2;
+        //     function b(){
+        //         console.log(num)
+        //     }
+        //     return b;
+        //     // console.log(b);
+        //     // return 123;
+        // }
+
+        // var b1 = a();
+        // var b2 = b1;
+        // b1();
+        // b1 = null;
+        // b2 = null;
+
+        // function a(){
+        //     var num=2;
+        //     num++;
+        //     console.log(num)
+        // }
+        // a();
+        // a();
+
+        // var a = 1;
+        // a+=1;
+
+        // ;
+        // (function () {
+        //     var a = 1;
+
+        //     function addA(){
+        //         a++;
+        //     }
+
+        //     function getA(){
+        //         return a;
+        //     }
+
+        //     window.addA = addA;
+        //     window.getA = getA;
+        // })()
+        // window.addA();
+        // console.log(window.getA())
+
+
+        function a(){
+            var num = 2;
+            function b1(){
+                num++;
+                console.log(num)
+            }
+            function b2(){
+                num+=2;
+                console.log(num)
+            }
+            return {
+                b1,
+                b2
+            };
+        }
+
+        var {b1,b2} = a();
+
+        b1();   //3     3
+        b1();   //4     4
+        b1();   //5     5
+        b1();   //6     6
+
+        b2();   //4     8
+        b2();   //6     10
+        b2();   //8     12
+        b2();   //10    14
+
+        b2=null;
+        b1();
+    </script>
+</body>
+
+</html>
