@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+            在编程界,一共存在两种作用域
+                1.词法作用域(又称为静态作用域)
+                    该类作用域只跟函数的声明位置有关
+                    也就是说,函数的作用域在声明函数的时候,就已经决定了,不会发生变化
+
+                2.动态作用域
+                    该类作用域与函数的调用位置有关
+
+                注意:在js中,只存在词法作用域,不存在动态作用域
+
+            1.预解析(声明提升)
+                会将标识的声明提升到当前作用域的最顶端,不会穿透作用域
+
+                函数提升
+                    函数提升是整体提升,会将标识声明和标识赋值一起提前
+
+                变量提升
+                    变量提升是局部提升,只会将标识声明提前
+                    注意:函数表达式属于变量提升,只会提升变量声明部分,后面的函数不会提升
+
+            2.预解析优先级
+                函数提升优先于变量提升
+
+            3.注意:变量和函数名都是标识,是同一种东西
+
+            4.作用域类型
+                1.全局作用域
+                2.局部作用域(函数作用域)
+                3.块级作用域(必须要使用let或者const才有可能出现)
+        
+        */
+        // var num = 1;
+        // function a(){
+        //     var num = 2;
+        //     function b(){
+        //         console.log(num)
+        //     }
+        //     return b
+        // }
+
+        // var b1 = a();
+        // b1();
+
+
+        // function a() {
+        //     console.log(123)
+        // }
+        // var a;
+
+        // a();
+
+        // a = 3;
+
+
+        // var a是在声明标识
+        // a=3是在给标识赋值
+        // var a = 3;
+        // a();
+        // function a() {
+        //     console.log(123)
+        // }
+        // 类似于 var a = new Function('console.log(123)');
+
+
+        // var 变量 = 匿名函数,这种格式成为函数表达式
+        // var a =function(){
+        //     console.log(234)
+        // }
+        // function a(){
+        //     console.log(123)
+        // }
+        // a();
+
+        // function a(){
+        //     console.log(123)
+        // }
+        // var a;
+        // a = function(){
+        //     console.log(234)
+        // }
+        // a();
+
+        // var a = 1;
+        // function b(){
+        //     var c = 2;
+        //     var a = 4;
+        //     function d(){
+        //         console.log(a,c);
+        //     }
+        //     d();
+        // }
+        // b();
+        // console.log(a,c);
+
+
+
+        /* 具名函数表达式的函数名
+                1.只有在该函数内部可见,在外层作用域不可见
+                2.而且对该函数名的修改无效,无法发生变化
+        */ 
+        var a = 5;
+        const obj = {
+            a:7,
+            fn:function a(){
+                a=8;
+                console.log('1',a)
+            }
+        }
+        obj.fn();
+        console.log('2',a);
+
+
+        // if(true){
+        //     const obj = {
+        //         a:7,
+        //         fn:function(){
+        //             a=8;
+        //             console.log('1',a)
+        //         }
+        //     }
+        // }
+        // console.log(obj)
+    </script>
+</body>
+
+</html>
