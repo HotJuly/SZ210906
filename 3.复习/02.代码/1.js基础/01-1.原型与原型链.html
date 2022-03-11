@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            如何区分一个函数是不是构造函数?
+                通过调用方式来确定,如果使用new调用,他就是构造函数,如果没有就是普通函数
+
+                注意:只通过函数声明,是无法区分一个函数是不是构造函数的
+
+                变量,函数名都是标识
+        
+        */
+        // function Person(name,age){
+        //     this.name = name;
+        //     this.age = age;
+        // }
+
+        // var p1 = Person("xiaoming",23);
+        // console.log(p1)
+
+        /*
+            js内存划分:
+                一共分为堆内存和栈内存,两种区域
+                栈内存中可以存放基本数据类型数据,对象的地址值,还有标识
+                堆内存中可以存放对象数据类型(引用数据类型),也可以通过对象的属性来存放基本数据类型以及地址值
+                    万物皆对象
+                        注意:在堆内存中,所有对象都是兄弟,不存在嵌套关系
+
+
+            原型相关:
+                1.每个构造函数都有显式原型属性prototype
+                2.每个实例对象都有隐式原型属性__proto__
+                3.实例对象的隐式原型指向了构造函数的显式原型
+                4.原型对象上具有constructor属性指向构造函数本身
+
+                问题:请问在创建普通函数的时候,会不会生成原型对象?
+                    会,只不过由于普通函数没有实例对象,所以他的原型对象没用,不做研究
+
+
+            手动实现new效果
+                1.将实参传入到形参中,进行接收
+                2.创建变量this,并向this中传入实例对象
+                3.将构造函数当前这一瞬间的显式原型属性赋值给this的隐式原型属性
+                4.默认返回this
+                    如果返回基础数据类型数据,就会返回this
+                    如果返回对象数据类型,就会返回该对象
+
+            构造函数是为区分不同的对象,不同类型的对象可以拥有不同的方法
+        */
+
+        function Person(name,age){
+            this.name = name;
+            this.age = age;
+            // return "123";
+            // return {
+            //     a:1
+            // }
+        }
+
+        var p1 = new Person("xiaoming",23);
+        console.log(p1)
+
+        // var obj = {
+        //     obj2:{
+        //         a:1
+        //     }
+        // }
+
+        function person(name,age){
+            var that = {};
+            that.__proto__ = person.prototype;
+            that.name = name;
+            that.age = age;
+
+            return that;
+        }
+
+        var p2 = person("xiaoming1",24);
+        console.log(p2)
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /* 
+            对象属性读取顺序
+                1.首先检查对象自身是否具有该属性,如果有就是用
+                2.如果对象身上没有该属性,就会顺着隐式原型链向上查找,如果找到就使用,如果没找到就返回undefined
+                    p1.c -> p1.__proto__.c -> p1.__proto__.__proto__.c
+
+            对象属性设置顺序
+                对象属性设置不会影响到原型链上的内容,他只会修改当前对象的属性
+
+            总结:读取属性与原型链有关,设置与原型链无关
+        */
+        function Person(name,age){
+            this.name = name;
+            this.age = age;
+        }
+
+        Person.prototype.c = 1;
+
+        var p1 = new Person("xiaoming",23);
+
+        // p1.c = p1.c + 1;
+        p1.c+=1;
+
+        console.log(p1,p1.c,Person.prototype.c)
+    </script>
+</body>
+</html>

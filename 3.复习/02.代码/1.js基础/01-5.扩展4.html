@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            现在存在一个变量,但是变量中的数据是未知的,请问如何的值当前变量中存放的是什么数据类型
+        
+        */
+        // var data = [1,2,3];
+        // var data = {};
+        // var data = "123";
+        // var data = null;
+        var data = new Date();
+
+        // 方案一:使用instanceof区分当前数据是不是某类数据,但是该方法只能知道是或不是,无法确定是什么类型
+        // console.log(data instanceof Array)
+
+        // 方案二:使用typeof来区分,根据返回值可以知道数据是什么类型,
+        // 但是该方法具有很多缺点,例如null会被识别为对象,无法区分对象数据类型
+        // console.log(typeof data)
+
+        console.log(Object.prototype.toString.call(data).split(" ")[1].replace("]",""))
+    </script>
+</body>
+</html>

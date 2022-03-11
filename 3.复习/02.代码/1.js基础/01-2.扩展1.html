@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            如果想要给基础数据类型添加属性,那么js引擎就会使用对应的包装类函数,创建一个对象,当使用结束之后立即销毁
+                number -> Number
+                string -> String
+                boolean -> Boolean
+            注意:从基础数据类型身上找属性是不会报错的
+        */
+        var str = "hello";
+        str.title = "world";
+        console.log(str + str.title);
+
+        var num = 123;
+        num.count = 4;
+        console.log(num + num.count);
+    </script>
+</body>
+</html>
