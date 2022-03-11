@@ -8,25 +8,44 @@
 </head>
 <body>
     <script>
-        console.log("1",true==1);     
-        console.log("2",true=="1");   
-        console.log("3","2"==1);      
-        console.log("4","a"==1);       
-        console.log("5",true=="true"); 
-        console.log("6",true=="false");
+        // js中的6个false值:false,0,NaN,"",undefined,null
+        // 隐式类型转换,是当==左右两侧的数据类型不相同时候,才会发生类型转换
 
-        console.log("7",[]==[]);    
-        console.log("8",{}=={});    
-        console.log("9",[]===[]);  
-        console.log("10",{}==={}); 
-        console.log("11",[]!==[]); 
-        console.log("12",[]==![]);
-        console.log("13",{}!=={}); 
-        console.log("14",{}==!{});
+        // 基本数据类型 VS 基本数据类型
+        // toNumber->都往数字转
+        // console.log("1",true==1);       //1===1   true
+        // console.log("2",true=="1");     //1===1   true
+        // console.log("3","2"==1);        //2===1   false
+        // console.log("4","a"==1);        //NaN===1   false
+        // console.log("5",true=="true");  //1===NaN   false
+        // console.log("6",true=="false"); //1===NaN   false
 
-        console.log("15",0=="0") 
-        console.log("16",0==[])  
-        console.log("17","0"==[])
+
+        // 对象数据类型 VS 对象数据类型
+        //  对象与对象之间之比较地址值
+
+        /* 
+            语法糖->复杂语法的简写
+            []  ->  new Array
+            {}  ->  new Object
+        */
+        console.log("7",[]==[]);    //  new Array === new Array     false
+        console.log("8",{}=={});    //  new Object === new Object   false
+        console.log("9",[]===[]);   //  false
+        console.log("10",{}==={});  //  false
+        console.log("11",[]!==[]);  //  true
+        console.log("13",{}!=={});  //  true
+
+
+        //符号优先级    !>==
+        // 对象数据类型 VS 基本数据类型
+        // 规则:先对对象数据类型使用valueOf比较一次,如果失败再使用toString比较一次
+        console.log("12",[]==![]);  //  []==fasle   =>  []==false(valueOf之后的结果) => ""==false => 0===0 => true
+        console.log("14",{}==!{});  //  {}==false   =>  {}==false(valueOf之后的结果) => '[object Object]'==false => NaN === 0  =>false
+
+        console.log("15",0=="0")    //  0===0   true
+        console.log("16",0==[])     //  0==""   =>  0===0   true
+        console.log("17","0"==[])   //  "0"==""  => false
 
     </script>
 </body>
