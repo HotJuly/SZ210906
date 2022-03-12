@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            构造函数:Promise
+            需要接收的参数个数
+                1个,数据类型为函数
+                该函数会被同步执行
+
+                回调函数接收参数的个数
+                    2个,数据类型为函数
+                        resolve
+                            调用该方法可以将当前返回的p1对象状态变为成功
+                        reject
+                            调用该方法可以将当前返回的p1对象状态变为失败
+
+                        注意:
+                            1.如果给以上两个方法传参,该参数会变成p1对象的result值
+                            2.p1的状态只能变化一次,变化不可逆
+
+            返回值:
+                构造调用该函数会返回一个promise类型的对象(是pending状态)
+                    pending     ->等待  
+                    resolved    ->成功
+                    rejected    ->失败
+
+            
+            .then
+                数据类型:函数
+                接收参数个数
+                    2个,数据类型是函数
+                    当.then监视promise对象变为成功状态,就会执行第一个回调函数(所以称第一个回调函数为成功回调)
+                    当.then监视promise对象变为失败状态,就会执行第二个回调函数(所以称第二个回调函数为失败回调)
+
+                    注意:
+                        1.无论是成功还是失败回调函数,都会接收到监视的promise对象的result值(用回调函数的形参接收)
+                        2.如果被监视的promise状态发生变化,但是没有对应的回调函数处理,那么返回的p2的状态就会复制被监视的promise的状态
+
+                返回值
+                    then函数会返回一个全新的promise对象(p2对象)
+                    如何修改p2的状态
+                        变为成功
+                            1.如果回调函数中return的不是一个promise对象,那么就会将p2的状态变为成功状态
+                                并且,return的结果会变成p2的result值
+
+                                只要回调函数中的代码成功执行结束,就会将p2的状态变为成功状态(代码执行结束相当于return undefined)
+
+                            2.如果回调函数中return的是一个成功的promise对象,那么就会将p2的状态变为成功状态
+
+                        变为失败
+                            1.只要回调函数中的代码没能成功执行结束,就会将p2的状态变为失败状态
+
+                            2.如果回调函数中return的是一个失败的promise对象,那么就会将p2的状态变为失败状态
+
+                        注意:p2的状态与执行了哪个回调函数无关,至于上述返回值以及代码是否报错有关
+
+            .catch
+                数据类型:函数
+                接收的参数个数
+                    1个,数据类型:函数
+                    如果被监视的promise状态变为失败状态,就会触发该回调函数
+
+                .catch其实就是.then的语法糖
+                    相当于.then(null,()=>{})
+        */
+
+        // console.log('2')
+
+
+        // 案例一:可以看出p1的状态只能变化一次,变化不可逆
+        // var p1 = new Promise((resolve,reject)=>{
+        //     // console.log('1')
+        //     setTimeout(()=>{
+        //         resolve(123);
+        //     },0)
+        //     setTimeout(()=>{
+        //         reject(234);
+        //     },1000)
+        //     // reject(234);
+        // })
+
+        // setTimeout(()=>{
+        //     console.log(p1)
+        // },2000)
+
+
+        // var p1 = new Promise((resolve,reject)=>{
+        //     setTimeout(()=>{
+        //         resolve(123);
+        //         // reject(234);
+        //     },1000)
+        // });
+
+        // var p2 = p1.then((data)=>{
+        //     // throw new Error('666');
+        //     console.log('success',data)
+
+        //     // return Promise.resolve();
+        //     return Promise.reject();
+
+        //     // 此处的return是写给回调函数的,所以不会影响到.then函数的返回值
+        //     // return 123;
+        // },(data)=>{
+        //     console.log('fail',data)
+        // })
+
+        // console.log('p2',p2)
+
+        var p1 = new Promise((resolve,reject)=>{
+            setTimeout(()=>{
+                // resolve(123);
+                reject(234);
+            },1000)
+        });
+
+        // p1
+        // .then(()=>{
+        //     console.log('1')
+        // },()=>{
+        //     console.log('2')
+        // })
+        // .then(()=>{
+        //     console.log('3')
+        // },()=>{
+        //     console.log('4')
+        // })
+        // .catch(()=>{
+        //     console.log('5')
+        // })
+
+        
+
+        p1
+        .then(()=>{
+            console.log('1')
+        })
+        .then(()=>{
+            console.log('3')
+        })
+        .catch(()=>{
+            console.log('5')
+        })
+    </script>
+</body>
+</html>

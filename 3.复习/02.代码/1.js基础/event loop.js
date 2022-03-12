@@ -38,6 +38,7 @@ const fs = require('fs');
 
 // 宏任务是普通用户,微任务是VIP,nextTick是SVIP
 // node中一共具有6个宏任务队列,2个微任务队列(nextTick和then各一个)
+// 虽然nextTick队列具有优先的条件,但是如果已经正在执行then队列,那么就必须清空当前微任务队列才能切换队列
 // process.nextTick(()=>{
 //     console.log('1')
 // })
