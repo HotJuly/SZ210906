@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+            this其实是js引擎预留的关键字,他的本质其实就相当于是一个形参(或者说是变量)
+                this和形参的区别,形参接收的数据可以由开发者传入实参控制,但是this是js引擎传入的
+
+            this就是调用当前函数的调用者
+            this的指向与函数的声明位置无关,他只与调用方式有关
+
+            this的四种常见情况:
+                1.普通调用->window
+                    a();
+
+                2.构造调用->创建出来的实例对象
+                    new a()
+
+                3.隐式调用->方法前面最近的实例对象
+                    obj.fn();
+
+                4.显式调用->传入借调函数的第一个实参
+                    call,apply,bind都可以强行改变this指向
+                    call,apply,bind三者都称为借调函数,而a被称为被借调函数
+                    a.call(obj1);
+                    a.apply(obj1);
+                    a.bind(obj1)();
+
+            特殊的this指向:
+                1.事件回调函数
+                    this指向为事件源
+                    box.onclick=function(){//this就是box}
+                2.定时器
+                    this指向为window
+                3.Vue组件的methods,computed,watch等
+                    this指向为当前组件的实例对象
+                4.小程序的方法,生命周期等
+                    this指向为当前页面的实例对象
+                5.React组件的方法,生命周期等
+                    如果使用了class语法简写某个方法,那么该方法中的this就是undefined
+                    如果使用箭头函数形式书写,那么该方法中的this就是当前组件的实例对象
+                6.箭头函数
+                    this指向与调用方式没有任何关系,他只跟函数的声明位置有关
+                    this指向外层作用域的this
+
+                面试题:请问call,apply,bind能不能修改箭头函数的this?
+                答案:不能,因为箭头函数没有自己的this
+
+                面试题:请问箭头函数能不能被构造调用?
+                答案:不能,会报错
+                    报错信息:a is not a constructor
+
+                面试题:请问箭头函数有没有自己的原型对象?
+                答案:没有
+        
+        */
+
+        // function a(){
+        //     console.log(this)
+        // }
+
+        // a();
+
+        // var obj = {
+        //     name:"obj",
+        //     obj2:{
+        //         name:"obj2",
+        //         fn:a
+        //     },
+        // }
+
+        // obj.obj2.fn();
+
+        // new a();
+
+        // var obj1={
+        //     name:"小明"
+        // }
+
+        // a.call(obj1);
+        // a.apply(obj1);
+        // a.bind(obj1)();
+
+
+        // var obj = {
+        //     // fn: function (a, b) {
+        //     //     console.log(this, a, b)
+        //     // }
+        //     fn: a=>this,
+        //     fn: a=>{
+        //         return this
+        //     },
+        //     fn:(a,b)=>{
+        //         return this
+        //     },
+        //     fn:(a,b)=>{
+        //         return {
+        //             a,
+        //             b
+        //         }
+        //     },
+        //     fn:(a,b)=>({a,b})
+        // }
+
+        // console.log(obj.fn(1))
+
+
+        // var obj = {
+        //     name:"obj"
+        // }
+
+        // var a = ()=>{
+        //     console.log(this)
+        // }
+
+        // // a.call(obj);
+        // new a();
+
+        var length = 5;
+
+        var obj = {
+            length:6,
+            fn:function(){
+                return this.length
+            }
+        }
+        // obj.fn = 0X001
+
+        var length = 7;
+
+        (function(){
+
+            var length = 8;
+
+            console.log(arguments[0]());
+
+        })(obj.fn);
+
+        // (function(){
+
+        //     // arguments用于收集当前函数接收到的所有实参,最终会组成一个伪数组(其实就是个对象)
+        //     // arguments.length属性与实际传入的实参数量有关
+        //         数组是特殊的对象,特殊在属性名是数字
+
+        //     var length = 8;
+
+        //     // console.log(arguments.0())
+
+        //     console.log(arguments[0]());
+
+        // })(0X001);
+    </script>
+</body>
+
+</html>
