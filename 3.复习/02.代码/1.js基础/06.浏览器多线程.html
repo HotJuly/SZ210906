@@ -16,23 +16,44 @@
       aaaaaaa
   </div>
   <script>
-      Promise.resolve().then(() => { // ?任务
+      /*
+        浏览器是一个多进程多线程的程序
+            js引擎只是他其中的一小部分(又称为js线程)
+            每个标签页都会开启至少一个进程
+      
+        代码执行顺序:首先执行主线程代码->清空微任务队列->取出一个宏任务执行->清空微任务队列->取出一个宏任务执行
+
+        升级版:首先执行主线程代码->清空微任务队列->渲染页面(GUI线程)->取出一个宏任务执行->清空微任务队列->取出一个宏任务执行
+
+        渲染页面需要使用到GUI线程,该线程与js线程互斥,只能同时执行一个线程
+
+        更新页面流程:清空微任务队列->渲染页面(GUI线程)->取出一个宏任务执行
+        GUI线程在渲染页面的时候,会实现类似于防抖的操作,会根据最后的操作结果来渲染页面,节省性能
+      */
+      Promise.resolve().then(() => { // 微任务
           alert('promise1') // 页面渲染了吗?
       }) 
-      Promise.resolve().then(() => { // ?任务
+      Promise.resolve().then(() => { // 微任务
           alert('promise2') // 页面渲染了吗?
       }) 
-      setTimeout(() => {// ?任务
+      setTimeout(() => {// 宏任务
           alert(document.getElementById('content').innerHTML)  // 页面渲染了吗?
       }, 0)
-      document.getElementById('test').onclick = () => {// ?任务
+      document.getElementById('test').onclick = () => {// 宏任务
+        // DOM节点被修改之后,会不会同步渲染到页面上?    不会
+        // GUI线程在渲染页面的时候,会实现类似于防抖的操作,会根据最后的操作结果来渲染页面,节省性能
+          document.getElementById('content').innerHTML = 'xxxx'
+          document.getElementById('content').innerHTML = 'xxxx2'
+          document.getElementById('content').innerHTML = 'xxxx3'
+          document.getElementById('content').innerHTML = 'xxxx4'
+          document.getElementById('content').innerHTML = 'xxxx2'
           document.getElementById('content').innerHTML = 'xxxx'
 
-          setTimeout(() => {// ?任务  
+          setTimeout(() => {// 宏任务  
               alert(document.getElementById('content').innerHTML) // 页面更新渲染了吗?
           }, 0); 
 
-          Promise.resolve().then(() => { // ?任务 
+          Promise.resolve().then(() => { // 微任务 
               alert('promise3') //页面更新渲染了吗?
           }) 
       }

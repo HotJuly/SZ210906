@@ -124,25 +124,25 @@
         // // a.call(obj);
         // new a();
 
-        var length = 5;
+        // var length = 5;
 
-        var obj = {
-            length:6,
-            fn:function(){
-                return this.length
-            }
-        }
-        // obj.fn = 0X001
+        // var obj = {
+        //     length:6,
+        //     fn:function(){
+        //         return this.length
+        //     }
+        // }
+        // // obj.fn = 0X001
 
-        var length = 7;
+        // var length = 7;
 
-        (function(){
+        // (function(){
 
-            var length = 8;
+        //     var length = 8;
 
-            console.log(arguments[0]());
+        //     console.log(arguments[0]());
 
-        })(obj.fn);
+        // })(obj.fn);
 
         // (function(){
 
@@ -157,6 +157,151 @@
         //     console.log(arguments[0]());
 
         // })(0X001);
+
+
+        
+        // function a(value1,value2,value3){
+        //     console.log(this,value1,value2,value3)
+        //     return 6
+        // }
+
+        // var obj1={
+        //     name:"xiaoming"
+        // }
+
+        // console.log(1)
+        // a.call(obj1,1,2,3);
+        // // console.log(2)
+        // a.apply(obj1,[1,2,3]);
+        // console.log(3)
+
+        /*
+            面试题:call和apply的区别
+            回答:
+                相同点
+                    1.他们都可以改变函数的this指向
+                        通过给函数传入第一个实参可以强行改变this指向
+                    2.他们都会同步调用被借调函数
+                    3.他们都会将被借调函数的返回值作为自己的返回值进行返回
+                    4.如果没有传入第一个实参,那么this都是window
+                不同点
+                    1.实参的个数不同
+                        call方法 0->无限大
+                            第一个实参是改变this指向用的
+                            第二个实参开始都会作为参数传递给被借调函数使用
+                        apply方法 0->2
+                            第一个实参是改变this指向用的
+                            第二个实参一定是一个数组或者伪数组,最终apply会将该数组解构传入到被借调函数中
+        
+        */
+
+        // Function.prototype.myCall=function(thatThis,...args){
+        //     /*
+        //         this->a(也就是被借调函数)
+        //         thatThis->obj1(也就是需要改变的this指向)
+        //     */
+        // //    console.log('args',args)
+        //    if(thatThis===null||thatThis===undefined){
+        //         thatThis = window;
+        //    }
+
+        //     // thatThis._fn = a;
+        //    thatThis._fn = this;
+
+        //    var result = thatThis._fn(...args);
+
+        //    delete thatThis._fn;
+
+        //    return result;
+        // }
+
+        // 禁止使用ES6版本
+        // Function.prototype.myCall=function(thatThis){
+        //     /*
+        //         this->a(也就是被借调函数)
+        //         thatThis->obj1(也就是需要改变的this指向)
+        //     */
+
+        // // 由于禁止使用ES6语法,所以剩余参数无法使用,需要换成arguments
+        //     var args = [];
+        //     for(var i=1;i<arguments.length;i++){
+        //         args.push(arguments[i]);
+        //     }
+
+        //    if(thatThis===null||thatThis===undefined){
+        //         thatThis = window;
+        //    }
+
+        //     // thatThis._fn = a;
+        //    thatThis._fn = this;
+
+        // //    console.log(args.toString());
+        // //    var result = thatThis._fn(args.toString());
+        // //    var result = eval("thatThis._fn(1,2,3,4,5,6,7)")
+        //    var result = eval("thatThis._fn("+args.toString()+")")
+
+        //    delete thatThis._fn;
+
+        //    return result;
+        // }
+
+        // console.log(a.myCall(obj1,1,2,3,4,5,6,7))
+
+
+        /*
+            面试题:请说明call和bind的区别
+                相同点
+                    1.都能改变this指向
+                    2.接收参数数量以及格式相同 0->无限大
+                        第一个实参是改变this指向用的
+                        第二个实参开始都会作为参数传递给被借调函数使用
+                    3.如果第一个实参传入null||undefined,那么this指向会变成window
+
+                不同点
+                    1.返回值不同
+                        call方法会返回被借调函数的执行结果
+                        bind方法会返回一个被修改了this指向的全新函数
+                            由于bind会返回一个函数,所以该函数可以传入实参,也就是说相当于一共有两次传参的机会
+
+                    2.修改this指向的时效
+                        call方法只会临时修改当前本次执行的this指向,对后续调用没有任何影响
+                        bind方法返回的函数,会被永久修改this指向
+
+                    3.被借调函数的执行时机
+                        call方法会同步调用被借调函数
+                        bind方法需要等到开发者调用bind返回的函数时,才会触发被借调函数
+        */  
+
+        function a(value1,value2,value3){
+            console.log(this,value1,value2,value3)
+            return 6
+        }
+
+        var obj1={
+            name:"xiaoming"
+        }
+
+        Function.prototype.myBind=function(thatThis,...args){
+            /*
+                this->a(被借调函数)
+                thatThis->obj1(强行指定的this指向)
+            */
+           var that = this;
+
+            return function(...args2){
+                return that.call(thatThis,...args,...args2);
+            }
+        }
+
+        var fn = a.myBind(obj1,1,2);
+        // var fn = a.bind(obj1,1,2);
+        fn(4);
+        // fn();
+        // console.log(fn === a)
+        // a.bind(null,1,2,3)();
+
+        // a.call(obj1);
+        // a();
     </script>
 </body>
 

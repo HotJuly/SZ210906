@@ -7,28 +7,71 @@
 </head>
 <body>
   <script>
-    [1, 2, 3].forEach(item => {
-      console.log(item)
-    })
-    console.log('forEach()之后')
+    /*
+      在浏览器中具有主线程任务,宏任务,微任务,三种任务
+      js的异步就是将一些事情放在宏任务或者微任务中执行
 
-    new Promise((resolve, reject) => { // excutor  执行器函数
-      console.log('执行excutor')
-    })
-    console.log('new Promise()之后')
+      微任务:.then
+      宏任务:setTimeout,事件,ajax
+
+      完整说法:
+        1.通过.then方法可以开启微任务
+        2.通过setTimeout方法可以开启宏任务
+
+      执行顺序:主线程任务>微任务>宏任务
+    
+      面试题:回调函数一定会异步执行吗?
+      答案:不一定
+
+      队列->他不是一种特殊的数据结构,他其实是一种操作数据的方式
+        特点:先进先出,后进后出
+      
+      栈->先进后出,后进先出
+    */
+    // [1, 2, 3].forEach(item => {
+    //   console.log(item)
+    // })
+    // console.log('forEach()之后')
+
+    // new Promise((resolve, reject) => { // excutor  执行器函数
+    //   console.log('执行excutor')
+    // })
+    // console.log('new Promise()之后')
+
+    // setTimeout(() => {
+    //   console.log('执行timout回调')
+    // }, 0);
+    // console.log('setTimeout()之后')
+
+    // Promise.resolve(1).then(() => {
+    //   console.log('promise成功的回调')
+    // })
+    // Promise.resolve(1).then(() => {
+    //   console.log('promise成功的回调')
+    // })
+    // console.log('.then之后')
+
+    
+    setTimeout(() => {
+      console.log('1')
+
+      Promise.resolve().then(()=>{
+        console.log('5')
+      })
+
+    }, 0);
 
     setTimeout(() => {
-      console.log('执行timout回调')
+      console.log('2')
     }, 0);
-    console.log('setTimeout()之后')
 
-    Promise.resolve(1).then(() => {
-      console.log('promise成功的回调')
+    Promise.resolve().then(()=>{
+      console.log('3')
     })
-    Promise.resolve(1).then(() => {
-      console.log('promise成功的回调')
+
+    Promise.resolve().then(()=>{
+      console.log('4')
     })
-    console.log('.then之后')
   </script>
 </body>
 </html>
