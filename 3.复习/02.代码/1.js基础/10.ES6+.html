@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const obj ={
+            name:"小明",
+            wife:{
+                name:"小红"
+            }
+        }
+
+        // 这不是浅拷贝,这是赋值,将obj的地址值多存放了一份在obj2身上
+        const obj2 = obj
+
+        // 我们所谓的拷贝,无论是深拷贝还是浅拷贝,都是说将一个对象的属性拷贝到另外一个对象身上
+
+        // 以下是浅拷贝,当前新对象只拷贝了旧对象身上所有的属性值,其中wife属性是一个对象,
+        // 但是没有根据旧的wife对象,在堆内存中创建一个全新的wife对象,所以相当于是新旧obj共享一个wife
+        const obj3 = {...obj};
+
+
+        // 以下是深拷贝
+        // 此处会根据旧的wife对象,在堆内存中创建一个全新的wife对象,所以新旧obj都有对应的一个新旧wife
+        const obj4 = JSON.parse(JSON.stringify(obj));
+
+        console.log(obj,obj4)
+    </script>
+</body>
+</html>
