@@ -76,6 +76,8 @@ Vue.filter("myFilter", function (value) {
 //   }
 // })
 
+Vue.prototype.$myBus = new Vue();
+
 /*
   Vue中,能够控制页面显示内容的方法
     1.index.html中指定元素内部的内容
