@@ -1,6 +1,7 @@
 <template>
   <div v-loading="loading" class="hello">
     <h1>{{ msg }}</h1>
+    <h2>{{ user.age }}</h2>
   </div>
 </template>
 
@@ -16,9 +17,11 @@ export default {
   count:6,
   mounted(){
       // console.log('hello',this.$options.name)
-      this.fn(false);
+      // this.fn(false);
+      console.log('inject',this.user)
   },
-  mixins:[showLoading]
+  mixins:[showLoading],
+  inject:["user"]
 }
 </script>
 

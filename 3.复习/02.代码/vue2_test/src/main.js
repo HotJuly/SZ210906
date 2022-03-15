@@ -76,9 +76,24 @@ Vue.filter("myFilter", function (value) {
 //   }
 // })
 
+/*
+  Vue中,能够控制页面显示内容的方法
+    1.index.html中指定元素内部的内容
+    2.配置对象中的template字符串
+    3.配置对象中的render方法
+
+    面试题:请问以上三者的显示优先顺序是怎么样?
+    优先级:render>template>index.html
+*/
 new Vue({
-  render: h => h(App),
-}).$mount('#app')
+  el:"#app",
+  data:{
+    msg:"hello",
+    msg2:"template"
+  },
+  template:"<h1>{{msg2}}</h1>",
+  render: h => h(App)
+})
 
 // var res = Vue.compile('<div><span>{{ msg }}</span></div>')
 

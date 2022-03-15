@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import HelloWorld from './components/HelloWorld.vue'
 
 // App.vue文件暴露出去的是一个配置对象,根据当前的配置对象Vue会生成组件实例对象
@@ -28,6 +29,12 @@ export default {
         age:28
       }
     }
+  },
+  provide:{
+    user:Vue.observable({
+      name:"小明",
+      age:28
+    })
   },
   count:2,
   mounted() {
@@ -80,7 +87,12 @@ export default {
       // this.$nextTick(()=>{
       //   console.log('$nextTick2');
       // })
-      console.log('app',this.$options.name)
+      // console.log('app',this.$options.name)
+
+      // console.log('app',this)
+      setTimeout(()=>{
+        this._provided.user.age = 38;
+      },5000)
   },
   methods:{
     handleClick(){
