@@ -1,5 +1,10 @@
+import ElementUI from 'element-ui'
 import Vue from 'vue'
 import App from './App.vue'
+
+import 'element-ui/lib/theme-chalk/index.css';
+
+Vue.use(ElementUI)
 
 Vue.config.productionTip = false
 
@@ -44,6 +49,43 @@ Vue.config.ignoredElements = [
   'ABC'
 ]
 
+Vue.filter("myFilter", function (value) {
+  // console.log('myFilter',value)
+
+  return `*** ${value} ***`
+})
+
+/*
+  需求:当每个组件挂载结束时,打印当前组件的name属性
+  使用Vue.mixin语法实现
+
+  Vue.mixin声明的生命周期不会对当前组件产生负面的影响
+*/
+
+// Vue.mixin({
+//   data(){
+//     return {
+//       loading:true
+//     }
+//   },
+//   mounted() {
+//     // console.log(this.$options.name)
+//     setTimeout(()=>{
+//       this.loading=false;
+//     },3000)
+//   }
+// })
+
 new Vue({
   render: h => h(App),
 }).$mount('#app')
+
+// var res = Vue.compile('<div><span>{{ msg }}</span></div>')
+
+// new Vue({
+//   data: {
+//     msg: 'hello'
+//   },
+//   render: res.render,
+//   staticRenderFns: res.staticRenderFns
+// }).$mount('#app')
