@@ -193,9 +193,14 @@ var compileUtil = {
         //      1.watcher对于首次渲染没有任何作用,它适用于更新视图的
         //      2.每次调用bind都会生成一个对应的watcher对象
         //          模版中每具有一个插值语法就会生成一个对应的watcher对象
-        // new Watcher(vm, exp, function(value, oldValue) {
-        //     updaterFn && updaterFn(node, value, oldValue);
+        // new Watcher(vm, "msg", function(value, oldValue) {
+        //     textUpdater && textUpdater(text节点, value, oldValue);
         // });
+        new Watcher(vm, exp, function(value, oldValue) {
+            debugger
+            updaterFn && updaterFn(node, value, oldValue);
+            debugger
+        });
         
     },
 

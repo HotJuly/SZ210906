@@ -112,12 +112,17 @@ function Dep() {
 
 Dep.prototype = {
     addSub: function(sub) {
+        // dep.addSub(watcher);
         this.subs.push(sub);
+        // 在此处,dep使用自己的subs数组收集与自己相关的watcher对象
+        // dep.subs.push(watcher);
 
     },
 
     depend: function() {
+        // this->dep
         Dep.target.addDep(this);
+        // watcher.addDep(dep);
     },
 
     removeSub: function(sub) {
@@ -131,6 +136,9 @@ Dep.prototype = {
         this.subs.forEach(function(sub) {
             sub.update();
         });
+        // this.subs.forEach(function(sub) {
+        //     watcher.update();
+        // });
     }
 };
 
