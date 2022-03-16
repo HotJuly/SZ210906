@@ -9,10 +9,13 @@ function Compile(el, vm) {
     if (this.$el) {
         this.$fragment = this.node2Fragment(this.$el);
 
+        // 此时是beforeMount的执行时机
+
         this.init();
 
         this.$el.appendChild(this.$fragment);
-
+        
+        //此处是mounted的执行时机
     }
 }
 

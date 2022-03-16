@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="B">
     <!-- <keep-alive include="A"> -->
     <!-- <keep-alive exclude="A"> -->
     <!-- <keep-alive max="2">
@@ -47,13 +47,34 @@ export default {
   data(){
     return{
       // showComponent:true
-      // showComponent:A
+      // showComponent:A,
+      flag:false
     }
   },
   methods:{
     // handleClick(){
     //   this.showComponent = !this.showComponent;
     // }
+  },
+  beforeCreate(){
+    console.log('------------beforeCreate--------------')
+    // console.log(this,this.$data,this.flag,this.$el)
+    console.log(this.$options,this.$data)
+  },
+  created(){
+    console.log('------------created--------------')
+    // console.log(this,this.$data,this.flag,this.$el)
+  },
+  beforeMount(){
+    console.log('------------beforeMount--------------')
+    // console.log(this,this.$data,this.flag,this.$el)
+    // _vnode中存储的是当前组件的虚拟DOM,而$vnode存储的是父组件的虚拟DOM
+    console.log(this._vnode,this.$vnode)
+  },
+  mounted(){
+    console.log('------------mounted--------------')
+    // console.log(this,this.$data,this.flag,this.$el)
+    console.log(this._vnode,this.$vnode)
   }
 }
 </script>

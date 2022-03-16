@@ -19,6 +19,8 @@ function MVVM(options) {
 
     this.$options = options;
 
+    // 此处就是beforeCreate的执行时机
+
     // var data = (this._data = this.$options.data);
     // var data = this.$options.data;
     // 此处的_data其实就是Vue2中的$data
@@ -121,6 +123,8 @@ function MVVM(options) {
     */
     observe(data, this);
     // observe(data, vm);
+
+    // 此处是created的执行时机
 
 
     /*
