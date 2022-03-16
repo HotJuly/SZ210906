@@ -1,57 +1,59 @@
 <template>
   <div id="app">
-    <!-- <showBigImg/> -->
+    <!-- <keep-alive include="A"> -->
+    <!-- <keep-alive exclude="A"> -->
+    <!-- <keep-alive max="2">
+      <A v-if="showComponent"/>
+      <B v-else/>
+    </keep-alive> -->
+    <!-- <component :is="showComponent"/> -->
+    <!-- <button @click="handleClick">变化</button> -->
 
-    <!-- <HelloWorld a="A" b="B" @input777=""/> -->
-    <!-- <MyButton :title="title" :type="color" size="mini" @click="showName"/> -->
-    <HelloWorld v-show="false" :username.sync="username"/>
-    <!-- <HelloWorld :username="username" @update:username="data=>username=data"/> -->
-    <h1 v-once>{{info.a}}</h1>
-    {{info.b}}
-    {{info.c}}
+    <!-- <HelloWorld>
+      <template>
+        <A></A>
+      </template>
+      <template #header>
+        <B></B>
+      </template>
+      <template #footer="scope123">
+        <h1>我是{{scope123.title}}插槽</h1>
+        <h2>我来自父组件App</h2>
+      </template>
+    </HelloWorld> -->
+    <showBigImg>
+      <template #com="{listeners}">
+        <h1 v-on="listeners">放大</h1>
+      </template>
+      <!-- <template #com="scope">
+        <h1 v-on="scope.listeners">放大</h1>
+      </template> -->
+    </showBigImg>
   </div>
 </template>
 
 <script>
+import A from './components/A.vue'
+import B from './components/B.vue'
 import HelloWorld from './components/HelloWorld.vue'
 import showBigImg from './components/showBigImg.vue'
-import MyButton from './components/MyButton.vue'
-
 export default {
   components: {
+    A,
+    B,
     HelloWorld,
-    showBigImg,
-    MyButton
+    showBigImg
   },
   data(){
     return{
-      title:"你接下来要做的事情非常危险,是否继续?",
-      color:"danger",
-      username:"小红",
-      info:{
-        a:1,
-        b:2
-      }
+      // showComponent:true
+      // showComponent:A
     }
   },
   methods:{
-    showName(){
-      console.log(this.name)
-    }
-  },
-  mounted(){
-    // this.$myBus.$on("sendMsg",(data)=>{
-    //   // console.log('sendMsg',data)
-    //   this.username = data;
-    // })
-
-    // this.info.c=3;
-    // this.$forceUpdate();
-    // this.$destroy();
-    // this.info.a = 2;
-    // console.log(this.info)
-    
-    this.info.a = 2;
+    // handleClick(){
+    //   this.showComponent = !this.showComponent;
+    // }
   }
 }
 </script>

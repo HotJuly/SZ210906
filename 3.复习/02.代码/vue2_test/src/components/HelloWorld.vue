@@ -1,28 +1,28 @@
 <template>
   <div  class="hello">
-    {{username}}
-    <button @click="handleClick">修改</button>
+    <h1>hello</h1>
+    <slot></slot>
+    <slot name="header"></slot>
+    <slot name="footer" :title="title"></slot>
   </div>
 </template>
 
 <script>
 export default {
   name: 'HelloWorld',
-  props:["username"],
-  // props:{
-  //   b:String
-  // },
-  mounted(){
-    // console.log('mounted',this.$listeners)
-  },
-  methods:{
-    handleClick(){
-      // this.$emit("update:username","老王")
-      this.$myBus.$emit('sendMsg',"老王")
+  data(){
+    return{
+      title:"作用域"
     }
   }
 }
 </script>
 
 <style scoped>
+.hello{
+  width:400px;
+  height:400px;
+  border: 1px solid;
+  background-color: pink;
+}
 </style>

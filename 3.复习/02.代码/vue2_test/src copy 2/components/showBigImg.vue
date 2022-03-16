@@ -8,11 +8,7 @@
       :preview-src-list="srcList"
     >
     </el-image>
-
-    <!-- 该结构可能在未来会根据业务场景发生变化 -->
-    <!-- <button @click="showModal">展示大图</button> -->
-
-    <slot name="com" :listeners="{click:showModal}"/>
+    <button @click="showModal">展示大图</button>
   </div>
 </template>
 
