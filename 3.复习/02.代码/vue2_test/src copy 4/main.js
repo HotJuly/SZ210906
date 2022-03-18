@@ -1,6 +1,5 @@
 import ElementUI from 'element-ui'
 import Vue from 'vue'
-import router from './router';
 import App from './App.vue'
 
 import 'element-ui/lib/theme-chalk/index.css';
@@ -95,8 +94,7 @@ new Vue({
     msg2:"template"
   },
   template:"<h1>{{msg2}}</h1>",
-  render: h => h(App),
-  router
+  render: h => h(App)
 })
 
 // var res = Vue.compile('<div><span>{{ msg }}</span></div>')
