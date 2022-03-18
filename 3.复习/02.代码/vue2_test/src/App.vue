@@ -15,7 +15,7 @@ export default {
   },
   methods:{
     handleClick(){
-        this.$router.replace('/home')
+        this.$router.push('/home')
     }
   }
 }
