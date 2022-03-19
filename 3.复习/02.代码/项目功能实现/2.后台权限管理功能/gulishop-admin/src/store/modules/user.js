@@ -3,6 +3,7 @@ import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter , constantRoutes , asyncRoutes , anyRoutes} from '@/router'
 import router from '@/router'
 import filterAsyncRoutes from '@/utils/filterAsyncRoutes';
+import mapButtons from '@/utils/mapButtons';
 
 const getDefaultState = () => {
   return {
@@ -16,7 +17,7 @@ const getDefaultState = () => {
     routeNames:[],
 
     // 存储服务器返回的用户的按钮级权限数组
-    buttons:[],
+    buttons:{},
 
     roles:[]
   }
@@ -53,7 +54,7 @@ const mutations = {
     // 这个属性是为了解决页面左侧menu组件的显示问题
     state.routes = constantRoutes.concat(newAsyncRoutes,anyRoutes);
 
-    state.buttons = buttons;
+    state.buttons = mapButtons(buttons);
     state.roles = roles;
   }
 }

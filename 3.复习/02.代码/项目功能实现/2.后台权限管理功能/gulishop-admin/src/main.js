@@ -59,6 +59,27 @@ Vue.use(ElementUI, { locale })
 Vue.config.productionTip = false
 
 
+Vue.directive("has-permission",{
+  inserted(el,{value}){
+    // el->可以得到当前使用了指令的节点生成的真实DOM
+    // value->可以得到当前指令的属性值->其中就说明了当前按钮所需要的权限
+
+    /*
+      如果当前用户不具有使用该按钮的权限,那么就是用原生DOM的删除方法,将当前节点从页面上删除
+    
+    */
+    // console.log('inserted',el,value)
+
+    // const result = store.state.user.buttons.includes(value);
+    const result = store.state.user.buttons[value];
+
+    if(!result){
+      el.parentNode.removeChild(el);
+    }
+  }
+})
+
+
 new Vue({
   el: '#app',
   router,
