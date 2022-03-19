@@ -9,7 +9,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
         开启的进程数量,与自身电脑的CPU核数有关
         注意:
             开启额外的进程需要花费额外的开销
-                -   开启进程需要600ms
+                -   开启进程需要额外花费600ms
                 -   进程与进程之间通信也会花费时间
     实现:
         哪个rule需要帮助,就在他的loader数组最前面添加一个thread-loader
