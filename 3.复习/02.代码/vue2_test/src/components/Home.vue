@@ -10,6 +10,10 @@ export default {
   data(){
     return{
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    console.log('beforeRouteEnter',to,from);
+    next();
   }
 }
 </script>
