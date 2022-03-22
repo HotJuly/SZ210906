@@ -30,18 +30,32 @@ export default {
 </script>
 
 <script setup>
+// const item = reactive({
+//   planTime: "00:00",
+//   planText: "",
+// });
+
 const item = reactive({
   planTime: "00:00",
   planText: "",
 });
 
 const props = defineProps(["item"]);
-console.log(props)
+// console.log(props)
 
-const emits = defineEmits(["update:item","addPlan"]);
+if(props.item.id){
+    // 能进入这里就说明在修改某个计划
+    Object.assign(item,props.item)
+}
+
+const emits = defineEmits(["update:item","addPlan","updatePlan"]);
 
 const save = ()=>{
-    emits("addPlan",{id:Date.now(),...item})
+    if(item.id){
+        emits("updatePlan",item);
+    }else{
+        emits("addPlan",{id:Date.now(),...item})
+    }
     emits("update:item",null);
 }
 
